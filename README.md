@@ -2,9 +2,12 @@
 即時操作顯示，CSS屬性與屬性值筆記。
 
 預覽：
-CodePen URL: [CSS 屬性控制模型-text-decoration-template](https://codepen.io/april808/pen/VwEwqzv).
-  [Vue template CSS 屬性控制模型](https://codepen.io/april808/full/PoyoQgL)
-1. GitHub: [CSS 屬性控制模型-template](./csstext-decoration-template/dist/index.html)
+
+CodePen URL: 
+  - [CSS 屬性控制模型-text-decoration-template](https://codepen.io/april808/pen/VwEwqzv).
+  - [Vue template CSS 屬性控制模型](https://codepen.io/april808/full/PoyoQgL)
+
+GitHub: [CSS 屬性控制模型-template](./csstext-decoration-template/dist/index.html)
 
 說明：
 
