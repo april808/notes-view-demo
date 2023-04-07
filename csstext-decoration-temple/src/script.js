@@ -8,7 +8,7 @@ property:[
   {name: "text-decoration-style",type:"style",initial_value: "solid",
       values:["solid","dashed","dotted","double","wavy"]}
 ],
-notes: "文字畫線裝飾"
+notes: "文字畫線"
 };
 
 const app = Vue.createApp({

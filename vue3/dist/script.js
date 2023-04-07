@@ -62,34 +62,31 @@ const _hoisted_16 = /*#__PURE__*/createElementVNode("hr", null, null, -1 /* HOIS
 const _hoisted_17 = { class: "settings" };
 const _hoisted_18 = { class: "row" };
 const _hoisted_19 = { class: "col-sm-3" };
-const _hoisted_20 = { class: "col-sm-9" };
-const _hoisted_21 = {
+const _hoisted_20 = { key: 0 };
+const _hoisted_21 = { class: "col-sm-9" };
+const _hoisted_22 = {
   key: 0,
   class: "itemp"
 };
-const _hoisted_22 = ["onClick"];
-const _hoisted_23 = {
-  key: 1,
-  class: "itemp"
-};
+const _hoisted_23 = { class: "colorgroup" };
 const _hoisted_24 = ["for"];
 const _hoisted_25 = ["id", "name"];
 const _hoisted_26 = {
-  key: 2,
+  key: 1,
   class: "itemp"
 };
 const _hoisted_27 = ["onClick"];
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createElementBlock("div", _hoisted_1, [
-    createElementVNode("h1", _hoisted_2, toDisplayString($data.cssSD.shorthand + $data.cssSD.notes), 1 /* TEXT */),
+    createElementVNode("h1", _hoisted_2, toDisplayString($data.cssSD.shorthand +' / '+ $data.cssSD.notes), 1 /* TEXT */),
     createElementVNode("div", _hoisted_3, [
       createElementVNode("div", _hoisted_4, [
         createElementVNode("div", _hoisted_5, [
           createElementVNode("div", {
             class: "text-model",
             style: normalizeStyle($options.getStyle)
-          }, toDisplayString($data.cssSD.notes), 5 /* TEXT, STYLE */)
+          }, toDisplayString($data.cssSD.shorthand +' / '+ $data.cssSD.notes), 5 /* TEXT, STYLE */)
         ]),
         createElementVNode("pre", {
           class: normalizeClass(["code", {hideMode: !$data.showcode}])
@@ -133,42 +130,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             return (openBlock(), createElementBlock("div", _hoisted_17, [
               createElementVNode("div", _hoisted_18, [
                 createElementVNode("div", _hoisted_19, [
-                  createElementVNode("label", null, toDisplayString(item.name) + " :", 1 /* TEXT */)
+                  (!item.type == '' )
+                    ? (openBlock(), createElementBlock("span", _hoisted_20, toDisplayString(item.name +' :'), 1 /* TEXT */))
+                    : createCommentVNode("v-if", true)
                 ]),
-                createElementVNode("div", _hoisted_20, [
-                  (item.type == 'line')
-                    ? (openBlock(), createElementBlock("div", _hoisted_21, [
-                        (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
-                          return (openBlock(), createElementBlock("button", {
-                            class: normalizeClass({active: item.initial_value==d}),
-                            onClick: $event => (item.initial_value=d)
-                          }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_22))
-                        }), 256 /* UNKEYED_FRAGMENT */))
+                createElementVNode("div", _hoisted_21, [
+                  (item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'  )
+                    ? (openBlock(), createElementBlock("div", _hoisted_22, [
+                        createElementVNode("div", _hoisted_23, [
+                          (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
+                            return (openBlock(), createElementBlock("label", {
+                              for: item.type
+                            }, [
+                              createElementVNode("span", {
+                                onInput: _cache[2] || (_cache[2] = (...args) => (_ctx.colorVal && _ctx.colorVal(...args)))
+                              }, toDisplayString($data.defaultColor), 33 /* TEXT, HYDRATE_EVENTS */)
+                            ], 8 /* PROPS */, _hoisted_24))
+                          }), 256 /* UNKEYED_FRAGMENT */)),
+                          withDirectives(createElementVNode("input", {
+                            type: "color",
+                            id: item.type,
+                            name: item.type,
+                            "onUpdate:modelValue": _cache[3] || (_cache[3] = $event => (($data.defaultColor) = $event))
+                          }, null, 8 /* PROPS */, _hoisted_25), [
+                            [vModelText, $data.defaultColor]
+                          ])
+                        ])
                       ]))
-                    : createCommentVNode("v-if", true),
-                  (item.type == 'color')
-                    ? (openBlock(), createElementBlock("div", _hoisted_23, [
-                        (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
-                          return (openBlock(), createElementBlock("label", {
-                            for: item.type
-                          }, [
-                            withDirectives(createElementVNode("input", {
-                              type: "color",
-                              id: item.type,
-                              name: item.type,
-                              "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => (($data.defaultColor) = $event))
-                            }, null, 8 /* PROPS */, _hoisted_25), [
-                              [vModelText, $data.defaultColor]
-                            ]),
-                            createElementVNode("span", {
-                              onInput: _cache[3] || (_cache[3] = (...args) => (_ctx.colorVal && _ctx.colorVal(...args)))
-                            }, toDisplayString($data.defaultColor), 33 /* TEXT, HYDRATE_EVENTS */)
-                          ], 8 /* PROPS */, _hoisted_24))
-                        }), 256 /* UNKEYED_FRAGMENT */))
-                      ]))
-                    : createCommentVNode("v-if", true),
-                  (item.type == 'style')
-                    ? (openBlock(), createElementBlock("div", _hoisted_26, [
+                    : (openBlock(), createElementBlock("div", _hoisted_26, [
                         (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
                           return (openBlock(), createElementBlock("button", {
                             class: normalizeClass({active: item.initial_value==d}),
@@ -176,7 +165,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                           }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_27))
                         }), 256 /* UNKEYED_FRAGMENT */))
                       ]))
-                    : createCommentVNode("v-if", true)
                 ])
               ])
             ]))
@@ -214,7 +202,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "* {\n  transition: 0.5s;\n}\nhtml, body {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #888;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n#app {\n  font-family: Avenir, Helvetica, Arial, sans-serif;\n  text-align: center;\n  color: #2c3e50;\n  margin-top: 60px;\n}\na, button {\n  color: rgba(31, 87, 62, 0.8);\n}\nbutton {\n  background: none;\n  border: solid 1px;\n  border-radius: 2em;\n  font: inherit;\n  padding: 0.75em 2em;\n  margin: 0.1em 0.2em;\n}\n.demo {\n  background-color: #eee;\n  border-radius: 25px;\n}\n.demo .container {\n  margin: auto;\n  padding: 10px 20px;\n}\n.demo .boxcontent {\n  border: 5px solid #aaf;\n  border-radius: 25px;\n  box-shadow: inset 0 0 10px rgba(0, 0, 170, 0.6);\n}\n.demo .boxcontent .code {\n  border: 1px solid #2c3e50;\n}\n.demo .boxcontent .view {\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n}\n.demo .boxcontent .view .text-model {\n  transform: scale(2);\n}\n.demo .control .status {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n.demo .control .settings .itemp {\n  background-color: #ddddff;\n  margin: 5px;\n  padding: 5px;\n  vertical-align: middle;\n}\n.demo .control .itemp span {\n  display: inline-block;\n  margin: 0 10px;\n  vertical-align: top;\n}\n.demo .code, .demo .mode {\n  display: block;\n  overflow: hidden;\n  height: auto;\n}\n.demo .active {\n  background-color: #ffddaa;\n}\n.demo .hideMode {\n  opacity: 0;\n  overflow: hidden;\n  height: 0;\n}\n.vc-chrome {\n  position: absolute;\n  top: 35px;\n  right: 0;\n  z-index: 9;\n}\n.current-color {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: #000;\n  cursor: pointer;\n}";
+var css_248z = "* {\n  transition: 0.5s;\n}\nhtml, body {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #888;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n#app {\n  font-family: Avenir, Helvetica, Arial, sans-serif;\n  text-align: center;\n  color: #2c3e50;\n  margin-top: 60px;\n}\na, button {\n  color: rgba(31, 87, 62, 0.8);\n}\nbutton {\n  background: none;\n  border: solid 1px;\n  border-radius: 2em;\n  font: inherit;\n  padding: 0.75em 2em;\n  margin: 0.1em 0.2em;\n}\n.demo {\n  background-color: #eee;\n  border-radius: 25px;\n}\n.demo .container {\n  margin: auto;\n  padding: 10px 20px;\n}\n.demo .boxcontent {\n  border: 5px solid #aaf;\n  border-radius: 25px;\n  box-shadow: inset 0 0 10px rgba(0, 0, 170, 0.6);\n}\n.demo .boxcontent .code {\n  border: 1px solid #2c3e50;\n}\n.demo .boxcontent .view {\n  height: 100px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n}\n.demo .boxcontent .view .text-model {\n  transform: scale(2);\n}\n.demo .control .status {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n.demo .control .settings .itemp {\n  background-color: #ddddff;\n  margin: 5px;\n  padding: 5px;\n  vertical-align: middle;\n}\n.demo .control .itemp .colorgroup {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  margin: 5px;\n}\n.demo .control .itemp .colorgroup span {\n  display: inline-block;\n  margin-bottom: 5px;\n}\n.demo .code, .demo .mode {\n  display: block;\n  overflow: hidden;\n  height: auto;\n}\n.demo .active {\n  background-color: #ffddaa;\n}\n.demo .hideMode {\n  opacity: 0;\n  overflow: hidden;\n  height: 0;\n}\n.vc-chrome {\n  position: absolute;\n  top: 35px;\n  right: 0;\n  z-index: 9;\n}\n.current-color {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: #000;\n  cursor: pointer;\n}";
 styleInject(css_248z);
 
 script.render = render;

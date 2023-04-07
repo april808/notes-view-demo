@@ -1,11 +1,12 @@
 <!-- Use preprocessors via the lang attribute! e.g. <template lang="pug"> -->
 <template>
+
 <div id="app">
-  <h1 class="container">{{ cssSD.shorthand + cssSD.notes }} </h1>
+  <h1 class="container">{{ cssSD.shorthand +' / '+ cssSD.notes }} </h1>
   <div class="demo">
     <div class="boxcontent container">
       <div class="view">
-        <div class="text-model" :style="getStyle">{{ cssSD.notes }}</div>
+        <div class="text-model" :style="getStyle">{{ cssSD.shorthand +' / '+ cssSD.notes }} </div>
       </div>
       <pre class="code" v-bind:class="{hideMode: !showcode}"> <code>{{getStyle}}</code></pre>
     </div>
@@ -23,19 +24,15 @@
       <div class="mode" v-bind:class="{hideMode: !editing}"> 
         <div class="settings" v-for="(item,index) in cssSD.property">
           <div class="row">
-            <div class="col-sm-3">
-              <label>{{item.name}} :</label>
-            </div>
+            <div class="col-sm-3"><span v-if="!item.type == '' ">{{item.name +' :'}}</span></div>
             <div class="col-sm-9">
-              <div class="itemp" v-if="item.type == 'line'">
-                <button v-for="d in item.values" :class="{active: item.initial_value==d}" @click="item.initial_value=d">{{d}}</button>
+              <div class="itemp" v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'  ">
+                <div class="colorgroup">
+                  <label :for="item.type" v-for="d in item.values"><span v-on:input="colorVal">{{defaultColor}}</span></label>
+                  <input type="color" :id="item.type" :name="item.type" v-model="defaultColor"/>
+                </div>
               </div>
-              <div class="itemp" v-if="item.type == 'color'">
-                <label :for="item.type" v-for="d in item.values">
-                  <input type="color" :id="item.type" :name="item.type" v-model="defaultColor"/><span v-on:input="colorVal">{{defaultColor}}</span>
-                </label>
-              </div>
-              <div class="itemp" v-if="item.type == 'style'">
+              <div class="itemp" v-else="item.type == 'color'">
                 <button v-for="d in item.values" :class="{active: item.initial_value==d}" @click="item.initial_value=d">{{d}}</button>
               </div>
             </div>
@@ -45,6 +42,7 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
@@ -176,10 +174,14 @@ button
       margin: 5px
       padding: 5px
       vertical-align: middle
-    & .itemp span
-        display: inline-block
-        margin: 0 10px
-        vertical-align: top
+    & .itemp 
+        & .colorgroup
+            +flexCenter
+            flex-direction: column
+            margin: 5px
+            span
+              display: inline-block
+              margin-bottom: 5px
   & .code, & .mode
       display: block
       overflow: hidden
