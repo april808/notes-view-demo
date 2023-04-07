@@ -20,3 +20,13 @@ GitHub:
 
 1. 條件判斷檢查是否有`type:color`,但最後要json格式要保留一個空陣物件，否則網站會掛掉。 
 1. 使用Vue3寫法。
+
+ 
+製作文字畫線的參考：
+- [Vue Color Picker Using Native Input Type Color](https://morioh.com/p/8594cd5d27c7)
+- [simple color picker input with vue-color](https://codepen.io/brownsugar/pen/NaGPKy)
+- [Vue Native Color Picker](https://dcustodio.github.io/vue-native-color-picker/)
+- [Vue / color](https://vuejsexamples.com/tag/color/)
+- [[筆記][Vue.js]打開Vue.js世界的大門(6)-讓watch來當你的眼睛！](https://ithelp.ithome.com.tw/articles/10198961)
+- 在vue裡綁定color Value 方式
+	- [https://stackoverflow.com/questions/68485996/html-input-type-color-display-as-text-color-code](https://stackoverflow.com/questions/68485996/html-input-type-color-display-as-text-color-code)
