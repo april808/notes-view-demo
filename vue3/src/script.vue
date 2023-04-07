@@ -1,22 +1,25 @@
 <!-- Use preprocessors via the lang attribute! e.g. <template lang="pug"> -->
 <template>
-  <div id="app">
-    <h1 class="container">{{ cssSD.shorthand }}</h1>
-    <!--     <p>{{ editing }}</p> -->
+<div id="app">
+  <h1 class="container">{{ cssSD.shorthand + cssSD.notes }} </h1>
   <div class="demo">
-    <div class="contentbox container">
+    <div class="boxcontent container">
       <div class="view">
-        <div class="div" :style="getStyle">一行文字段落</div>
+        <div class="text-model" :style="getStyle">{{ cssSD.notes }}</div>
       </div>
-      <pre class="code"><code>{{getStyle}}</code></pre>
+      <pre class="code" v-bind:class="{hideMode: !showcode}"> <code>{{getStyle}}</code></pre>
     </div>
     <div class="control container">
-      <h5 class="notify">狀態: {{status}}<span v-if="!editing">{{ statusNow('(預設)') }}</span><span v-else="!editing">{{ statusNow('修改CSS樣式') }}</span></h5>
-      <label class="hiddenControl">
-        編輯:
-        <input v-model="editing" type="checkbox" />
-      </label>
-      <hr />
+      <div class="status">
+        <h5 class="notify">狀態: {{status}}<span v-if="!editing">{{ statusNow('(預覽)') }}</span><span v-else="!editing">{{ statusNow('修改CSS樣式') }}</span></h5>
+        <label class="hiddenControl">編輯:
+          <input v-model="editing" type="checkbox"/>
+        </label>
+        <label class="hiddenControl">原始碼:
+          <input v-model="showcode" type="checkbox"/>
+        </label>
+      </div>
+      <hr/>
       <div class="mode" v-bind:class="{hideMode: !editing}"> 
         <div class="settings" v-for="(item,index) in cssSD.property">
           <div class="row">
@@ -24,16 +27,15 @@
               <label>{{item.name}} :</label>
             </div>
             <div class="col-sm-9">
-              <div v-if="item.type == 'line'">
+              <div class="itemp" v-if="item.type == 'line'">
                 <button v-for="d in item.values" :class="{active: item.initial_value==d}" @click="item.initial_value=d">{{d}}</button>
               </div>
-  <!--             <div v-if="item.type == 'color'">
+              <div class="itemp" v-if="item.type == 'color'">
                 <label :for="item.type" v-for="d in item.values">
-                  <input type="color" :id="item.type" v-model="d"/>{{ d }}
-                  <input type="text" size="10" placeholder="輸入color" v-model="d" :class="{active: item.initial_value==d}"/>
+                  <input type="color" :id="item.type" :name="item.type" v-model="defaultColor"/><span v-on:input="colorVal">{{defaultColor}}</span>
                 </label>
-              </div> -->
-              <div v-if="item.type == 'style'">
+              </div>
+              <div class="itemp" v-if="item.type == 'style'">
                 <button v-for="d in item.values" :class="{active: item.initial_value==d}" @click="item.initial_value=d">{{d}}</button>
               </div>
             </div>
@@ -42,43 +44,21 @@
       </div>
     </div>
   </div>
-    <!--     <p>
-      Learn more with the
-      <a
-        href="https://vuejs.org/"
-        target="_blank"
-        rel="noopener"
-      >Vue Docs &amp; Resources</a>.
-    </p> -->
-
-    <!--     <button @click="doSomething">Say he555llo.</button> -->
-  </div>
+</div>
 </template>
 
 <script>
-var alldata = {
-  shorthand: "text-decoration",
-  property: [
-    {
-      name: "text-decoration-line",
-      type: "line",
-      initial_value: "none",
-      values: ["none", "underline", "overline", "line-through"]
-    },
-    {
-      name: "text-decoration-color",
-      type: "color",
-      initial_value: "currentcolor",
-      values: ["currentcolor"]
-    },
-    {
-      name: "text-decoration-style",
-      type: "style",
-      initial_value: "solid",
-      values: ["solid", "dashed", "dotted", "double", "wavy"]
-    }
-  ],
-  notes: ""
+var alldata= {
+shorthand: "text-decoration",
+property:[
+  {name: "text-decoration-line",type:"line",initial_value:"none",
+      values:["none","underline","overline","line-through"]},
+  {name: "text-decoration-color",type:"color",initial_value: "currentcolor",
+      values:["currentcolor"]},
+  {name: "text-decoration-style",type:"style",initial_value: "solid",
+      values:["solid","dashed","dotted","double","wavy"]}
+],
+notes: "文字畫線裝飾"
 };
 
 export default {

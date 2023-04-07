@@ -1,28 +1,16 @@
-const { openBlock, createElementBlock, createElementVNode, toDisplayString, createCommentVNode, normalizeStyle, createTextVNode, withDirectives, vModelCheckbox, normalizeClass, Fragment, renderList } = Vue;
+const { openBlock, createElementBlock, createElementVNode, toDisplayString, normalizeStyle, normalizeClass, createTextVNode, withDirectives, vModelCheckbox, Fragment, renderList, createCommentVNode, vModelText } = Vue;
 
-var alldata = {
-  shorthand: "text-decoration",
-  property: [
-    {
-      name: "text-decoration-line",
-      type: "line",
-      initial_value: "none",
-      values: ["none", "underline", "overline", "line-through"]
-    },
-    {
-      name: "text-decoration-color",
-      type: "color",
-      initial_value: "currentcolor",
-      values: ["currentcolor"]
-    },
-    {
-      name: "text-decoration-style",
-      type: "style",
-      initial_value: "solid",
-      values: ["solid", "dashed", "dotted", "double", "wavy"]
-    }
-  ],
-  notes: ""
+var alldata= {
+shorthand: "text-decoration",
+property:[
+  {name: "text-decoration-line",type:"line",initial_value:"none",
+      values:["none","underline","overline","line-through"]},
+  {name: "text-decoration-color",type:"color",initial_value: "currentcolor",
+      values:["currentcolor"]},
+  {name: "text-decoration-style",type:"style",initial_value: "solid",
+      values:["solid","dashed","dotted","double","wavy"]}
+],
+notes: "文字畫線裝飾"
 };
 
 var script = {
@@ -58,86 +46,134 @@ var script = {
 const _hoisted_1 = { id: "app" };
 const _hoisted_2 = { class: "container" };
 const _hoisted_3 = { class: "demo" };
-const _hoisted_4 = { class: "contentbox container" };
+const _hoisted_4 = { class: "boxcontent container" };
 const _hoisted_5 = { class: "view" };
-const _hoisted_6 = { class: "code" };
+const _hoisted_6 = /*#__PURE__*/createTextVNode();
 const _hoisted_7 = { class: "control container" };
-const _hoisted_8 = { class: "notify" };
-const _hoisted_9 = { key: 0 };
-const _hoisted_10 = { key: 1 };
-const _hoisted_11 = { class: "hiddenControl" };
-const _hoisted_12 = /*#__PURE__*/createTextVNode(" 編輯: ");
-const _hoisted_13 = /*#__PURE__*/createElementVNode("hr", null, null, -1 /* HOISTED */);
-const _hoisted_14 = { class: "settings" };
-const _hoisted_15 = { class: "row" };
-const _hoisted_16 = { class: "col-sm-3" };
-const _hoisted_17 = { class: "col-sm-9" };
-const _hoisted_18 = { key: 0 };
-const _hoisted_19 = ["onClick"];
-const _hoisted_20 = { key: 1 };
-const _hoisted_21 = ["onClick"];
+const _hoisted_8 = { class: "status" };
+const _hoisted_9 = { class: "notify" };
+const _hoisted_10 = { key: 0 };
+const _hoisted_11 = { key: 1 };
+const _hoisted_12 = { class: "hiddenControl" };
+const _hoisted_13 = /*#__PURE__*/createTextVNode("編輯: ");
+const _hoisted_14 = { class: "hiddenControl" };
+const _hoisted_15 = /*#__PURE__*/createTextVNode("原始碼: ");
+const _hoisted_16 = /*#__PURE__*/createElementVNode("hr", null, null, -1 /* HOISTED */);
+const _hoisted_17 = { class: "settings" };
+const _hoisted_18 = { class: "row" };
+const _hoisted_19 = { class: "col-sm-3" };
+const _hoisted_20 = { class: "col-sm-9" };
+const _hoisted_21 = {
+  key: 0,
+  class: "itemp"
+};
+const _hoisted_22 = ["onClick"];
+const _hoisted_23 = {
+  key: 1,
+  class: "itemp"
+};
+const _hoisted_24 = ["for"];
+const _hoisted_25 = ["id", "name"];
+const _hoisted_26 = {
+  key: 2,
+  class: "itemp"
+};
+const _hoisted_27 = ["onClick"];
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createElementBlock("div", _hoisted_1, [
-    createElementVNode("h1", _hoisted_2, toDisplayString($data.cssSD.shorthand), 1 /* TEXT */),
-    createCommentVNode("     <p>{{ editing }}</p> "),
+    createElementVNode("h1", _hoisted_2, toDisplayString($data.cssSD.shorthand + $data.cssSD.notes), 1 /* TEXT */),
     createElementVNode("div", _hoisted_3, [
       createElementVNode("div", _hoisted_4, [
         createElementVNode("div", _hoisted_5, [
           createElementVNode("div", {
-            class: "div",
+            class: "text-model",
             style: normalizeStyle($options.getStyle)
-          }, "一行文字段落", 4 /* STYLE */)
+          }, toDisplayString($data.cssSD.notes), 5 /* TEXT, STYLE */)
         ]),
-        createElementVNode("pre", _hoisted_6, [
+        createElementVNode("pre", {
+          class: normalizeClass(["code", {hideMode: !$data.showcode}])
+        }, [
+          _hoisted_6,
           createElementVNode("code", null, toDisplayString($options.getStyle), 1 /* TEXT */)
-        ])
+        ], 2 /* CLASS */)
       ]),
       createElementVNode("div", _hoisted_7, [
-        createElementVNode("h5", _hoisted_8, [
-          createTextVNode("狀態: " + toDisplayString($data.status), 1 /* TEXT */),
-          (!$data.editing)
-            ? (openBlock(), createElementBlock("span", _hoisted_9, toDisplayString($options.statusNow('(預設)')), 1 /* TEXT */))
-            : (openBlock(), createElementBlock("span", _hoisted_10, toDisplayString($options.statusNow('修改CSS樣式')), 1 /* TEXT */))
-        ]),
-        createElementVNode("label", _hoisted_11, [
-          _hoisted_12,
-          withDirectives(createElementVNode("input", {
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (($data.editing) = $event)),
-            type: "checkbox"
-          }, null, 512 /* NEED_PATCH */), [
-            [vModelCheckbox, $data.editing]
+        createElementVNode("div", _hoisted_8, [
+          createElementVNode("h5", _hoisted_9, [
+            createTextVNode("狀態: " + toDisplayString($data.status), 1 /* TEXT */),
+            (!$data.editing)
+              ? (openBlock(), createElementBlock("span", _hoisted_10, toDisplayString($options.statusNow('(預覽)')), 1 /* TEXT */))
+              : (openBlock(), createElementBlock("span", _hoisted_11, toDisplayString($options.statusNow('修改CSS樣式')), 1 /* TEXT */))
+          ]),
+          createElementVNode("label", _hoisted_12, [
+            _hoisted_13,
+            withDirectives(createElementVNode("input", {
+              "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => (($data.editing) = $event)),
+              type: "checkbox"
+            }, null, 512 /* NEED_PATCH */), [
+              [vModelCheckbox, $data.editing]
+            ])
+          ]),
+          createElementVNode("label", _hoisted_14, [
+            _hoisted_15,
+            withDirectives(createElementVNode("input", {
+              "onUpdate:modelValue": _cache[1] || (_cache[1] = $event => (($data.showcode) = $event)),
+              type: "checkbox"
+            }, null, 512 /* NEED_PATCH */), [
+              [vModelCheckbox, $data.showcode]
+            ])
           ])
         ]),
-        _hoisted_13,
+        _hoisted_16,
         createElementVNode("div", {
           class: normalizeClass(["mode", {hideMode: !$data.editing}])
         }, [
           (openBlock(true), createElementBlock(Fragment, null, renderList($data.cssSD.property, (item, index) => {
-            return (openBlock(), createElementBlock("div", _hoisted_14, [
-              createElementVNode("div", _hoisted_15, [
-                createElementVNode("div", _hoisted_16, [
+            return (openBlock(), createElementBlock("div", _hoisted_17, [
+              createElementVNode("div", _hoisted_18, [
+                createElementVNode("div", _hoisted_19, [
                   createElementVNode("label", null, toDisplayString(item.name) + " :", 1 /* TEXT */)
                 ]),
-                createElementVNode("div", _hoisted_17, [
+                createElementVNode("div", _hoisted_20, [
                   (item.type == 'line')
-                    ? (openBlock(), createElementBlock("div", _hoisted_18, [
+                    ? (openBlock(), createElementBlock("div", _hoisted_21, [
                         (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
                           return (openBlock(), createElementBlock("button", {
                             class: normalizeClass({active: item.initial_value==d}),
                             onClick: $event => (item.initial_value=d)
-                          }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_19))
+                          }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_22))
                         }), 256 /* UNKEYED_FRAGMENT */))
                       ]))
                     : createCommentVNode("v-if", true),
-                  createCommentVNode("             <div v-if=\"item.type == 'color'\">\n                <label :for=\"item.type\" v-for=\"d in item.values\">\n                  <input type=\"color\" :id=\"item.type\" v-model=\"d\"/>{{ d }}\n                  <input type=\"text\" size=\"10\" placeholder=\"輸入color\" v-model=\"d\" :class=\"{active: item.initial_value==d}\"/>\n                </label>\n              </div> "),
+                  (item.type == 'color')
+                    ? (openBlock(), createElementBlock("div", _hoisted_23, [
+                        (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
+                          return (openBlock(), createElementBlock("label", {
+                            for: item.type
+                          }, [
+                            withDirectives(createElementVNode("input", {
+                              type: "color",
+                              id: item.type,
+                              name: item.type,
+                              "onUpdate:modelValue": _cache[2] || (_cache[2] = $event => (($data.defaultColor) = $event))
+                            }, null, 8 /* PROPS */, _hoisted_25), [
+                              [vModelText, $data.defaultColor]
+                            ]),
+                            createElementVNode("span", {
+                              onInput: _cache[3] || (_cache[3] = (...args) => (_ctx.colorVal && _ctx.colorVal(...args)))
+                            }, toDisplayString($data.defaultColor), 33 /* TEXT, HYDRATE_EVENTS */)
+                          ], 8 /* PROPS */, _hoisted_24))
+                        }), 256 /* UNKEYED_FRAGMENT */))
+                      ]))
+                    : createCommentVNode("v-if", true),
                   (item.type == 'style')
-                    ? (openBlock(), createElementBlock("div", _hoisted_20, [
+                    ? (openBlock(), createElementBlock("div", _hoisted_26, [
                         (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
                           return (openBlock(), createElementBlock("button", {
                             class: normalizeClass({active: item.initial_value==d}),
                             onClick: $event => (item.initial_value=d)
-                          }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_21))
+                          }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_27))
                         }), 256 /* UNKEYED_FRAGMENT */))
                       ]))
                     : createCommentVNode("v-if", true)
@@ -147,9 +183,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }), 256 /* UNKEYED_FRAGMENT */))
         ], 2 /* CLASS */)
       ])
-    ]),
-    createCommentVNode("     <p>\n      Learn more with the\n      <a\n        href=\"https://vuejs.org/\"\n        target=\"_blank\"\n        rel=\"noopener\"\n      >Vue Docs &amp; Resources</a>.\n    </p> "),
-    createCommentVNode("     <button @click=\"doSomething\">Say he555llo.</button> ")
+    ])
   ]))
 }
 
