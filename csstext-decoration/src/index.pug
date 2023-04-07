@@ -1,10 +1,3 @@
-//- https://morioh.com/p/8594cd5d27c7
-//- https://codepen.io/brownsugar/pen/NaGPKy
-//- https://dcustodio.github.io/vue-native-color-picker/
-//- https://vuejsexamples.com/tag/color/
-//- https://ithelp.ithome.com.tw/articles/10198961
-//- https://stackoverflow.com/questions/68485996/html-input-type-color-display-as-text-color-code
-
 #app
   h1.container {{ cssSD.shorthand + cssSD.notes }} 
   .demo
@@ -18,9 +11,9 @@
         h5.notify 狀態: {{status}}
           span(v-if="!editing") {{ statusNow('(預設)') }}
           span(v-else="!editing") {{ statusNow('修改CSS樣式') }}
-        label.hiddenControl(v-if="editing") 還原預設:
           span(v-else="!editing") {{ statusNow('還原預設:') }}
-          input(v-model="!editing" type="checkbox")
+        label(v-if="editing") 還原預設:
+          input(v-model="editing" type="checkbox")
         label.hiddenControl 編輯:
           input(v-model="editing" type="checkbox")
         label.hiddenControl 原始碼:
@@ -44,4 +37,4 @@
 
 
               .itemp(v-if="item.type == 'style'")
-                button(v-for="d in item.values",:class="{active: item.initial_value==d}",@click="item.initial_value=d") {{d}}
+							button(v-for="d in item.values",:class="{active: item.initial_value==d}",@click="item.initial_value=d") {{d}}

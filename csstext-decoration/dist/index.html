@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>CodePen - CSS 屬性控制模型-text-decoration</title>
-  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
@@ -19,10 +19,7 @@
     </div>
     <div class="control container">
       <div class="status">
-        <h5 class="notify">狀態: {{status}}<span v-if="!editing">{{ statusNow('(預設)') }}</span><span v-else="!editing">{{ statusNow('修改CSS樣式') }}</span></h5>
-        <label class="hiddenControl" v-if="editing">還原預設:<span v-else="!editing">{{ statusNow('還原預設:') }}</span>
-          <input v-model="!editing" type="checkbox"/>
-        </label>
+        <h5 class="notify">狀態: {{status}}<span v-if="!editing">{{ statusNow('(預覽)') }}</span><span v-else="!editing">{{ statusNow('修改CSS樣式') }}</span></h5>
         <label class="hiddenControl">編輯:
           <input v-model="editing" type="checkbox"/>
         </label>
