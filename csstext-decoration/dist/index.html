@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - CSS 屬性控制模型-text-decoration</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="app">
+  <h1 class="container">{{ cssSD.shorthand + cssSD.notes }} </h1>
+  <div class="demo">
+    <div class="boxcontent container">
+      <div class="view">
+        <div class="text-model" :style="getStyle">{{ cssSD.notes }}</div>
+      </div>
+      <pre class="code" v-bind:class="{hideMode: !showcode}"> <code>{{getStyle}}</code></pre>
+    </div>
+    <div class="control container">
+      <div class="status">
+        <h5 class="notify">狀態: {{status}}<span v-if="!editing">{{ statusNow('(預設)') }}</span><span v-else="!editing">{{ statusNow('修改CSS樣式') }}</span></h5>
+        <label class="hiddenControl" v-if="editing">還原預設:<span v-else="!editing">{{ statusNow('還原預設:') }}</span>
+          <input v-model="!editing" type="checkbox"/>
+        </label>
+        <label class="hiddenControl">編輯:
+          <input v-model="editing" type="checkbox"/>
+        </label>
+        <label class="hiddenControl">原始碼:
+          <input v-model="showcode" type="checkbox"/>
+        </label>
+      </div>
+      <hr/>
+      <div class="mode" v-bind:class="{hideMode: !editing}"> 
+        <div class="settings" v-for="(item,index) in cssSD.property">
+          <div class="row">
+            <div class="col-sm-3">
+              <label>{{item.name}} :</label>
+            </div>
+            <div class="col-sm-9">
+              <div class="itemp" v-if="item.type == 'line'">
+                <button v-for="d in item.values" :class="{active: item.initial_value==d}" @click="item.initial_value=d">{{d}}</button>
+              </div>
+              <div class="itemp" v-if="item.type == 'color'">
+                <label :for="item.type" v-for="d in item.values">
+                  <input type="color" :id="item.type" :name="item.type" v-model="defaultColor"/><span v-on:input="colorVal">{{defaultColor}}</span>
+                </label>
+              </div>
+              <div class="itemp" v-if="item.type == 'style'">
+                <button v-for="d in item.values" :class="{active: item.initial_value==d}" @click="item.initial_value=d">{{d}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.prod.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

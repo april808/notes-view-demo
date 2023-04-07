@@ -1,0 +1,47 @@
+//- https://morioh.com/p/8594cd5d27c7
+//- https://codepen.io/brownsugar/pen/NaGPKy
+//- https://dcustodio.github.io/vue-native-color-picker/
+//- https://vuejsexamples.com/tag/color/
+//- https://ithelp.ithome.com.tw/articles/10198961
+//- https://stackoverflow.com/questions/68485996/html-input-type-color-display-as-text-color-code
+
+#app
+  h1.container {{ cssSD.shorthand + cssSD.notes }} 
+  .demo
+    .boxcontent.container
+      .view
+        .text-model(:style="getStyle") {{ cssSD.notes }}
+      pre.code(v-bind:class="{hideMode: !showcode}") 
+        code {{getStyle}}
+    .control.container
+      .status
+        h5.notify 狀態: {{status}}
+          span(v-if="!editing") {{ statusNow('(預設)') }}
+          span(v-else="!editing") {{ statusNow('修改CSS樣式') }}
+        label.hiddenControl(v-if="editing") 還原預設:
+          span(v-else="!editing") {{ statusNow('還原預設:') }}
+          input(v-model="!editing" type="checkbox")
+        label.hiddenControl 編輯:
+          input(v-model="editing" type="checkbox")
+        label.hiddenControl 原始碼:
+          input(v-model="showcode" type="checkbox")
+      hr
+      .mode(v-bind:class="{hideMode: !editing}") 
+        .settings(v-for="(item,index) in cssSD.property")
+          .row
+            .col-sm-3
+              label {{item.name}} :
+            .col-sm-9
+              .itemp(v-if="item.type == 'line'")
+                button(v-for="d in item.values",:class="{active: item.initial_value==d}",@click="item.initial_value=d") {{d}}
+              .itemp(v-if="item.type == 'color'")
+                //- input(type="color" id="head" name="head" v-model="defaultColor")
+                //- label(for="head" :style="{color: defaultColor}") this {{defaultColor}}
+                label(:for="item.type" v-for="d in item.values")
+                  input(type="color",:id="item.type" :name="item.type" ,v-model="defaultColor")
+                  span(v-on:input="colorVal") {{defaultColor}}
+                  //- input(type="text" size="10" placeholder="輸入color" v-model="defaultColor" :class="{active: item.initial_value==d}",)
+
+
+              .itemp(v-if="item.type == 'style'")
+                button(v-for="d in item.values",:class="{active: item.initial_value==d}",@click="item.initial_value=d") {{d}}
