@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - CSS 屬性控制模型-border</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="app">
+  <div class="demo">
+    <div class="boxcontent container">
+      <h2 :style="getStyle">{{ cssSD.shorthand + ' / ' + cssSD.notes }}</h2>
+      <div class="view">
+        <div class="text-model" :style="getStyle" v-text="cssSD.template"></div>
+      </div>
+      <div v-bind:class="{ hideMode: !showcode }"> 
+        <pre><code class="code" v-text="getStyle"></code></pre>
+        <div class="shorthand" v-if="cssSD.property.length &gt; 1">
+          <h5 v-bind:class="{ hideMode: !showcode }">簡寫：</h5><code class="code">{{ getshort }}</code><code class="code">{{ valename() }}</code>
+        </div>
+      </div>
+    </div>
+    <div class="control container">
+      <div class="status">
+        <h5 class="notify">狀態: {{ status }}<span v-if="!editing">{{ statusNow('(預覽)') }}</span><span v-else="!editing">{{ statusNow('修改CSS樣式') }}</span></h5>
+        <label class="hiddenControl">編輯:
+          <input v-model="editing" type="checkbox"/>
+        </label>
+        <label class="hiddenControl">原始碼:
+          <input v-model="showcode" type="checkbox"/>
+        </label>
+      </div>
+      <hr/>
+      <div class="mode" v-bind:class="{ hideMode: !editing }"> 
+        <div class="settings" v-for="(item, index) in cssSD.property">
+          <div class="row">
+            <div class="col-sm-3"><span v-if="!item.type == ''">{{ item.name + ' :' }}</span></div>
+            <div class="col-sm-9">
+              <div class="itemp" v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'">
+                <div class="colorgroup">
+                  <label :for="item.type" v-for="d in item.values"><span v-text="defaultColor"></span></label>
+                  <input type="color" :id="item.type" :name="item.type" v-model="defaultColor"/>
+                </div>
+              </div>
+              <div class="itemp" v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'">
+                <label :for="'item.type'"> <span v-text="item.values[3]" :class="{ active: item.initial_value == item.values[3] }"> </span></label>
+                <div class="btn-group">
+                  <div class="group" v-for="d in item.values">
+                    <button v-if="d != item.values[3]" :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
+                    <input class="button" v-else=" d != item.values[3] " type="text" :value="item.values[3]" :id="item.type" :name="item.type" :class="{ active: item.initial_value == 'length' }" v-model="item.values[3]" @click="item.initial_value = 'length'" placeholder="請輸入單位"/>
+                  </div>
+                </div>
+              </div>
+              <div class="itemp" v-if="item.type != 'color' &amp;&amp; item.type != 'width'">
+                <button v-for="d in item.values" :class="{ active: item.initial_value == d }" @click="item.initial_value = d">{{ d }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.prod.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

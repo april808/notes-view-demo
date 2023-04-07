@@ -1,0 +1,49 @@
+#app
+  //- h1.container {{ cssSD.shorthand }}initial
+  .demo
+    .boxcontent.container
+      h2(:style="getStyle") {{ cssSD.shorthand + ' / ' + cssSD.notes }}
+      .view
+        .text-model(:style="getStyle", v-text="cssSD.template")
+      div(v-bind:class="{ hideMode: !showcode }") 
+        pre
+          code.code(v-text="getStyle")
+        .shorthand(v-if="cssSD.property.length > 1")
+          h5(v-bind:class="{ hideMode: !showcode }") 簡寫：
+          code.code {{ getshort }}
+          //- code.code {{ valename() }}
+    .control.container
+      .status
+        h5.notify 狀態: {{ status }}
+          span(v-if="!editing") {{ statusNow('(預覽)') }}
+          span(v-else="!editing") {{ statusNow('修改CSS樣式') }}
+        label.hiddenControl 編輯:
+          input(v-model="editing", type="checkbox")
+        label.hiddenControl 原始碼:
+          input(v-model="showcode", type="checkbox")
+      hr
+      .mode(v-bind:class="{ hideMode: !editing }") 
+        .settings(v-for="(item, index) in cssSD.property")
+          .row
+            .col-sm-3
+              span(v-if="!item.type == ''") {{ item.name + ' :' }}
+            .col-sm-9
+              .itemp(
+                v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'"
+              )
+                .colorgroup
+                  label(:for="item.type", v-for="d in item.values")
+                    span(v-on:input="colorVal") {{ defaultColor }}
+                  input(
+                    type="color",
+                    :id="item.type",
+                    :name="item.type",
+                    v-model="defaultColor"
+                  )
+
+              .itemp(v-else="item.type == 'color'")
+                button(
+                  v-for="d in item.values",
+                  :class="{ active: item.initial_value == d }",
+                  @click="item.initial_value = d"
+                ) {{ d }}
