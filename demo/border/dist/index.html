@@ -11,14 +11,15 @@
 <div id="app">
   <div class="demo">
     <div class="boxcontent container">
-      <h2 :style="getStyle">{{ cssSD.shorthand + ' / ' + cssSD.notes }}</h2>
+      <h1 :style="getStyle">{{ gettitle + ' / ' + cssSD.notes }}</h1>
       <div class="view">
         <div class="text-model" :style="getStyle" v-text="cssSD.template"></div>
       </div>
-      <div v-bind:class="{ hideMode: !showcode }"> 
+      <div :class="{ hideMode: !showcode }"> 
         <pre><code class="code" v-text="getStyle"></code></pre>
         <div class="shorthand" v-if="cssSD.property.length &gt; 1">
-          <h5 v-bind:class="{ hideMode: !showcode }">簡寫：</h5><code class="code">{{ getshort }}</code><code class="code">{{ valename() }}</code>
+          <h5 v-if="cssSD.shorthand != ''" :class="{ hideMode: !showcode }">簡寫：</h5><code class="code" v-if="cssSD.shorthand != ''">{{ getshort }}</code>
+          <h5 :class="{ hideMode: !showcode }">使用屬性:</h5><code class="code">{{ propertyname() }}</code>
         </div>
       </div>
     </div>
@@ -33,23 +34,22 @@
         </label>
       </div>
       <hr/>
-      <div class="mode" v-bind:class="{ hideMode: !editing }"> 
+      <div class="mode" :class="{ hideMode: !editing }"> 
         <div class="settings" v-for="(item, index) in cssSD.property">
           <div class="row">
             <div class="col-sm-3"><span v-if="!item.type == ''">{{ item.name + ' :' }}</span></div>
             <div class="col-sm-9">
               <div class="itemp" v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'">
                 <div class="colorgroup">
-                  <label :for="item.type" v-for="d in item.values"><span v-text="defaultColor"></span></label>
-                  <input type="color" :id="item.type" :name="item.type" v-model="defaultColor"/>
+                  <label :for="item.type" v-for="d in item.values"><span v-text="item.initial_value"></span></label>
+                  <input type="color" :id="item.type" :name="item.type" v-model="item.initial_value"/>
                 </div>
               </div>
               <div class="itemp" v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'">
-                <label :for="'item.type'"> <span v-text="item.values[3]" :class="{ active: item.initial_value == item.values[3] }"> </span></label>
                 <div class="btn-group">
                   <div class="group" v-for="d in item.values">
-                    <button v-if="d != item.values[3]" :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
-                    <input class="button" v-else=" d != item.values[3] " type="text" :value="item.values[3]" :id="item.type" :name="item.type" :class="{ active: item.initial_value == 'length' }" v-model="item.values[3]" @click="item.initial_value = 'length'" placeholder="請輸入單位"/>
+                    <button v-if=" !tocheckinput(d,item.values) " :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
+                    <input class="button" v-else=" tocheckinput(d,item.values) " type="text" :value="d" :id="d" :name="d" :class="{ active: item.initial_value == d }" v-model="item.values[item.values.indexOf(d)]" @click="item.initial_value = d" placeholder="請輸入單位 || length"/>
                   </div>
                 </div>
               </div>
