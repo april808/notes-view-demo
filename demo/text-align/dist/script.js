@@ -1,18 +1,20 @@
-console.clear();
+console.clear()
 
-var alldata = {
-  shorthand: "white-space",
-  property: [
-    {
-      name: "white-space",
-      type: "line",
-      initial_value: "normal",
-      values: ["normal", "nowrap", "pre", "break-spaces"]
-    }
-  ],
-  notes: "文字空格",
-  template:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+var alldata= {
+  shorthand: ""
+  ,property:[
+    {name: "text-align"
+       ,type:"line"
+       ,initial_value:"start"
+       ,values:["start","end","left","right","center","justify"]}
+    ,{name: "text-align-last"
+       ,type:"last"
+       ,initial_value:"auto"
+       ,values:["auto","left","center","right","justify"]}
+    
+  ]
+  ,notes: "文字水平對齊"
+  ,template: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 };
 
 const app = Vue.createApp({
@@ -80,9 +82,6 @@ const app = Vue.createApp({
         return "";
       }
     }
-    // updateColorValue(event) {
-    //   this.$emit("input", event);
-    // }
   },
   computed: {
     gettitle() {
@@ -100,26 +99,14 @@ const app = Vue.createApp({
       return obj;
     },
     getshort() {
-      let attr = [];
-      let name = this.cssSD.shorthand;
-      // return {
-      //   "white-space": this.cssSD.property[0].initial_value
-      // };
-      let nowCSS = this.propertyname()
-
-      for(let item of nowCSS ){
-        attr[nowCSS.indexOf(item)] = " " + this.tocheckvalue(item)
+      return {
+        "text-align": this.cssSD.property[0].initial_value,
+        "text-align-last": this.cssSD.property[1].initial_value,
       }
-      // return ( name + ": " + attr.join('\n') + ";";
-      return (
-        name +
-        ": " +
-        this.tocheckvalue("white-space") +
-        ";\n"
-      );
-    }
+    },
   }
-});
-app.mount("#app");
+})
+app.mount('#app');
+
 
 // ------------------------

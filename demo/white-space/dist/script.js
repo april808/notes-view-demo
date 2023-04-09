@@ -1,67 +1,125 @@
-console.clear()
+console.clear();
 
-var alldata= {
-  shorthand: "white-space"
-  ,property:[
-    {name: "white-space"
-       ,type:"line"
-       ,initial_value:"normal"
-       ,values:["normal","nowrap","pre","break-spaces"]}
-  ]
-  ,notes: "文字空格"
-  ,template: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+var alldata = {
+  shorthand: "white-space",
+  property: [
+    {
+      name: "white-space",
+      type: "line",
+      initial_value: "normal",
+      values: ["normal", "nowrap", "pre", "break-spaces"]
+    }
+  ],
+  notes: "文字空格",
+  template:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 };
 
 const app = Vue.createApp({
- // el: "#app",
-  data () {
+  // el: "#app",
+  data() {
     return {
       status: "",
-      editing: true,
+      editing: false,
       showcode: true,
       cssSD: alldata,
-      color: false,
-      defaultColor: 'currentcolor',
-      changeattr: []
-    }
+      defaultColor: "currentcolor"
+    };
   },
   methods: {
-    statusNow: function(notify){
+    checkshort: function () {
+      let check = this.cssSD.shorthand;
+      let name = this.cssSD.property[0].name;
+
+      if (check != "") {
+        return check;
+      } else {
+        return name;
+      }
+    },
+    statusNow: function (notify) {
       this.status = notify;
     },
-    // remove: function (id,fname){
-    //   this.fruits.splice(id,1);
-    //   this.status="第"+(id+1)+"項"+fname+"已經被移除了";
-    // },
-    add: function (data){
-      this.fruits.push(data);
-      this.status="加入了"+data;
+    propertyname: function () {
+      let cssnames = [];
+      let obj = this.cssSD.property;
+      for (let i = 0; i < obj.length; i++) {
+        cssnames[i] = obj[i].name;
+      }
+      return cssnames;
     },
-    updateValue(event) {
-      // this.$emit("input", event);
-      // var attrdata = this.changeattr;
-        for(var i=0;i<event.length;i+=1){
-          return this.changeattr[i] = this.attrdata[i]
+    tocheckinput: function (val, attr) {
+      let length = attr.length - 1;
+      let nowindex = attr.indexOf(val);
+
+      if (val == "length" || nowindex == length) {
+        return true;
+      }
+      // else if (nowindex == length) { return true }
+      else {
+        return false;
+      }
+    },
+    tocheckvalue: function (item) {
+      let obj = this.cssSD.property;
+
+      /* 確認屬性名稱的指定 */
+      let nowindex = 0;
+      for (let i = 0; i < obj.length; i++) {
+        if (item == obj[i].name) {
+          nowindex = i;
         }
+      } /* for結束 確認nowindex */
+
+      /* 屬性預設值 和可改動的內容 */
+      let valspace = obj[nowindex].initial_value;
+
+      if (valspace != "") {
+        return valspace;
+      } else {
+        return "";
+      }
     }
+    // updateColorValue(event) {
+    //   this.$emit("input", event);
+    // }
   },
   computed: {
-    getattr(){
-      return{
-        '11': this.changeattr
-      }
+    gettitle() {
+      return this.checkshort();
     },
-    getStyle(){
-      return {
-        "white-space": this.cssSD.property[0].initial_value,
-        // "text-decoration-color": this.cssSD.property[1].initial_value,
-        // "text-decoration-color": this.defaultColor,
-        // "text-decoration-style": this.cssSD.property[2].initial_value,
-      }
-    },
-  }
-})
-app.mount('#app');
+    getStyle() {
+      let nowCSS = this.propertyname();
 
+      let attr = [];
+      for (let item of nowCSS) {
+        attr[nowCSS.indexOf(item)] = item + ": " + this.tocheckvalue(item);
+      }
+
+      let obj = attr.join(";\n") + ";";
+      return obj;
+    },
+    getshort() {
+      let attr = [];
+      let name = this.cssSD.shorthand;
+      // return {
+      //   "white-space": this.cssSD.property[0].initial_value
+      // };
+      let nowCSS = this.propertyname()
+
+      for(let item of nowCSS ){
+        attr[nowCSS.indexOf(item)] = " " + this.tocheckvalue(item)
+      }
+      // return ( name + ": " + attr.join('\n') + ";";
+      return (
+        name +
+        ": " +
+        this.tocheckvalue("white-space") +
+        ";\n"
+      );
+    }
+  }
+});
+app.mount("#app");
 
 // ------------------------

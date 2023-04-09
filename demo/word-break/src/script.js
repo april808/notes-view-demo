@@ -17,45 +17,87 @@ var alldata= {
 };
 
 const app = Vue.createApp({
- // el: "#app",
-  data () {
+  // el: "#app",
+  data() {
     return {
       status: "",
       editing: false,
       showcode: true,
       cssSD: alldata,
-      color: false,
-      defaultColor: 'currentcolor',
-      changeattr: []
-    }
+      defaultColor: "currentcolor"
+    };
   },
   methods: {
-    statusNow: function(notify){
+    checkshort: function () {
+      let check = this.cssSD.shorthand;
+      let name = this.cssSD.property[0].name;
+
+      if (check != "") {
+        return check;
+      } else {
+        return name;
+      }
+    },
+    statusNow: function (notify) {
       this.status = notify;
     },
-    // remove: function (id,fname){
-    //   this.fruits.splice(id,1);
-    //   this.status="第"+(id+1)+"項"+fname+"已經被移除了";
-    // },
-    add: function (data){
-      this.fruits.push(data);
-      this.status="加入了"+data;
+    propertyname: function () {
+      let cssnames = [];
+      let obj = this.cssSD.property;
+      for (let i = 0; i < obj.length; i++) {
+        cssnames[i] = obj[i].name;
+      }
+      return cssnames;
     },
-    updateValue(event) {
-      // this.$emit("input", event);
-      // var attrdata = this.changeattr;
-        for(var i=0;i<event.length;i+=1){
-          return this.changeattr[i] = this.attrdata[i]
+    tocheckinput: function (val, attr) {
+      let length = attr.length - 1;
+      let nowindex = attr.indexOf(val);
+
+      if (val == "length" || nowindex == length) {
+        return true;
+      }
+      // else if (nowindex == length) { return true }
+      else {
+        return false;
+      }
+    },
+    tocheckvalue: function (item) {
+      let obj = this.cssSD.property;
+
+      /* 確認屬性名稱的指定 */
+      let nowindex = 0;
+      for (let i = 0; i < obj.length; i++) {
+        if (item == obj[i].name) {
+          nowindex = i;
         }
+      } /* for結束 確認nowindex */
+
+      /* 屬性預設值 和可改動的內容 */
+      let valspace = obj[nowindex].initial_value;
+
+      if (valspace != "") {
+        return valspace;
+      } else {
+        return "";
+      }
     }
   },
   computed: {
-    getattr(){
-      return{
-        '11': this.changeattr
-      }
+    gettitle() {
+      return this.checkshort();
     },
-    getStyle(){
+    getStyle() {
+      let nowCSS = this.propertyname();
+
+      let attr = [];
+      for (let item of nowCSS) {
+        attr[nowCSS.indexOf(item)] = item + ": " + this.tocheckvalue(item);
+      }
+
+      let obj = attr.join(";\n") + ";";
+      return obj;
+    },
+    getshort() {
       return {
         "word-break": this.cssSD.property[0].initial_value,
         "hyphens": this.cssSD.property[1].initial_value,

@@ -14,6 +14,7 @@ GitHub:
 1. [CSS 屬性控制模型-border / 邊框線](https://april808.github.io/notes-view-demo/demo/border/dist/index.html)
 1. [CSS 屬性控制模型-文字斷行(word-break)、連字符號(hyphens)](https://april808.github.io/notes-view-demo/demo/word-break/dist/index.html)
 1. [CSS 屬性控制模型-white-space / 文字空格](https://april808.github.io/notes-view-demo/demo/white-space/dist/index.html)
+1. [CSS 屬性控制模型-text-align / 文字水平對齊](https://april808.github.io/notes-view-demo/demo/text-align/dist/index.html)
 
 
 說明：

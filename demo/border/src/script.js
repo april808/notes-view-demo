@@ -121,7 +121,7 @@ const app = Vue.createApp({
         attr[nowCSS.indexOf(item)] = item + ": " + this.tocheckvalue(item)
       }
       
-      let obj = attr.join(';\n')
+      let obj = attr.join(';\n')+';'
       return obj
     },
     getshort() {

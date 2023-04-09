@@ -19,7 +19,6 @@
         <pre><code class="code" v-text="getStyle"></code></pre>
         <div class="shorthand" v-if="cssSD.property.length &gt; 1">
           <h5 v-if="cssSD.shorthand != ''" :class="{ hideMode: !showcode }">簡寫：</h5><code class="code" v-if="cssSD.shorthand != ''">{{ getshort }}</code>
-          <h5 :class="{ hideMode: !showcode }">使用屬性:</h5><code class="code">{{ propertyname() }}</code>
         </div>
       </div>
     </div>
