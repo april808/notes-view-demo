@@ -1,0 +1,76 @@
+#app
+  .demo
+    .boxcontent.container
+      h1(:style="getStyle") {{ gettitle + ' / ' + cssSD.notes }}
+      .view
+        .text-model(:style="getStyle", v-text="cssSD.template")
+      div(:class="{ hideMode: !showcode }") 
+        pre
+          code.code(v-text="getStyle")
+        .shorthand(v-if="cssSD.property.length > 1")
+          h5(v-if="cssSD.shorthand != ''", :class="{ hideMode: !showcode }") 簡寫：
+          code.code(v-if="cssSD.shorthand != ''") {{ getshort }}
+          //- h5(:class="{ hideMode: !showcode }") 使用屬性:
+          //- code.code {{ propertyname() }}
+    .control.container
+      .status
+        h5.notify 狀態: {{ status }}
+          span(v-if="!editing") {{ statusNow('(預覽)') }}
+          span(v-else="!editing") {{ statusNow('修改CSS樣式') }}
+        label.hiddenControl 編輯:
+          input(v-model="editing", type="checkbox")
+        label.hiddenControl 原始碼:
+          input(v-model="showcode", type="checkbox")
+      hr
+      .mode(:class="{ hideMode: !editing }") 
+        .settings(v-for="(item, index) in cssSD.property")
+          .row
+            .col-sm-3
+              span(v-if="!item.type == ''") {{ item.name + ' :' }}
+            .col-sm-9
+              .itemp(
+                v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'"
+              )
+                .colorgroup
+                  label(:for="item.type", v-for="d in item.values")
+                    span(v-text="item.initial_value")
+                  input(
+                    type="color",
+                    :id="item.type",
+                    :name="item.type",
+                    v-model="item.initial_value"
+                  )
+              .itemp(
+                v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'"
+              )
+                //- label(:for="d" v-for=" d in item.values ") 
+                //-   span(v-if=" tocheckinput(d,item.values) "
+                //-     v-text="item.values[item.values.indexOf(d)]",
+                //-     :class="{ active: item.initial_value == d }"
+                //-   ) {{ v-text="item.values.indexOf(d) +'/'+[item.values.length - 1]",}}
+                .btn-group
+                  .group(v-for="d in item.values")
+                    button(
+                      v-if=" !tocheckinput(d,item.values) ",
+                      :class="{ active: item.initial_value == d }",
+                      @click="item.initial_value = d",
+                      v-text="d"
+                    )
+                    input.button(
+                      v-else=" tocheckinput(d,item.values) ",
+                      type="text",
+                      :value="d",
+                      :id="d",
+                      :name="d",
+                      :class="{ active: item.initial_value == d }",
+                      v-model="item.values[item.values.indexOf(d)]",
+                      @click="item.initial_value = d",
+                      placeholder="請輸入單位 || length"
+                    )
+
+              .itemp(v-if="item.type != 'color' && item.type != 'width'")
+                button(
+                  v-for="d in item.values",
+                  :class="{ active: item.initial_value == d }",
+                  @click="item.initial_value = d"
+                ) {{ d }}
