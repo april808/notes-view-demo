@@ -5,7 +5,18 @@ var alldata = {
       name: "text-decoration-line",
       type: "line",
       initial_value: "none",
-      values: ["none", "underline", "overline", "line-through"]
+      values: ["none", "underline", "overline", "line-through"],
+      check_if: {
+        usevalue: "oblique",
+        initial_value: 45,
+        deg: [-90, 90]
+      }
+    },
+    {
+      name: "text-decoration-style",
+      type: "style",
+      initial_value: "solid",
+      values: ["solid", "dashed", "dotted", "double", "wavy"]
     },
     {
       name: "text-decoration-color",
@@ -14,10 +25,10 @@ var alldata = {
       values: ["currentcolor"]
     },
     {
-      name: "text-decoration-style",
-      type: "style",
-      initial_value: "solid",
-      values: ["solid", "dashed", "dotted", "double", "wavy"]
+      name: "text-decoration-thickness",
+      type: "width",
+      initial_value: "auto",
+      values: ["auto", "from-font", "length"]
     }
   ],
   notes: "文字畫線"
@@ -88,9 +99,6 @@ const app = Vue.createApp({
         return "";
       }
     }
-    // updateColorValue(event) {
-    //   this.$emit("input", event);
-    // }
   },
   computed: {
     gettitle() {
@@ -106,12 +114,6 @@ const app = Vue.createApp({
 
       let obj = attr.join(";\n") + ";";
       return obj;
-      //   return {
-      //     "text-decoration-line": this.cssSD.property[0].initial_value,
-      //     "text-decoration-color": this.defaultColor,
-      //     "text-decoration-style": this.cssSD.property[2].initial_value
-      //   }
-      // },
     },
     getshort() {
       let attr = [];

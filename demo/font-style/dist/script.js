@@ -8,10 +8,11 @@ var alldata = {
       type: "style",
       initial_value: "normal",
       values: ["normal", "italic", "oblique"],
-      angle: {
+      check_if: {
         usevalue: "oblique",
         initial_value: 45,
-        deg: [-90, 90]
+        range: [-90, 90],
+        unit: "deg"
       }
     }
   ],
@@ -88,14 +89,14 @@ const app = Vue.createApp({
       let nowindex = attr.indexOf(val);
 
       let item = this.cssSD.property[0];
-      let angle = item.angle;
+      let check_if = item.check_if;
 
-      if (item.initial_value.indexOf(angle.usevalue) == -1) {
+      if (item.initial_value.indexOf(check_if.usevalue) == -1) {
         return false;
-      } else if (angle.initial_value == 45) {
-        item.initial_value = angle.usevalue;
+      } else if (check_if.initial_value == 45) {
+        item.initial_value = check_if.usevalue;
         return true;
-      } else if (angle.initial_value != 45) {
+      } else if (check_if.initial_value != 45) {
         item.initial_value = this.getspl;
         return true;
       } else {
@@ -133,7 +134,7 @@ const app = Vue.createApp({
     },
     getspl() {
       let item = this.cssSD.property[0];
-      let data = item.angle.usevalue + " " + item.angle.initial_value + "deg";
+      let data = item.check_if.usevalue + " " + item.check_if.initial_value + item.check_if.unit;
       return data;
     }
   }

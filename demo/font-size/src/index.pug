@@ -3,7 +3,7 @@
     .boxcontent.container
       h1(:style="getStyle") {{ gettitle + ' / ' + cssSD.notes }}
       .view
-        .text-model(:style="getStyle", v-text="cssSD.template")
+        .text-model(:style="getStyle", v-html="cssSD.template")
       div(:class="{ hideMode: !showcode }") 
         pre
           code.code(v-text="getStyle")
@@ -37,7 +37,6 @@
                   input(
                     type="color",
                     :id="item.type",
-                    :name="item.type",
                     v-model="item.initial_value"
                   )
               .itemp(
@@ -59,9 +58,7 @@
                     input.button(
                       v-else=" tocheckinput(d,item.values) ",
                       type="text",
-                      :value="d",
                       :id="d",
-                      :name="d",
                       :class="{ active: item.initial_value == d }",
                       v-model="item.values[item.values.indexOf(d)]",
                       @click="item.initial_value = d",

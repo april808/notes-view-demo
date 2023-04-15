@@ -13,7 +13,7 @@
     <div class="boxcontent container">
       <h1 :style="getStyle">{{ gettitle + ' / ' + cssSD.notes }}</h1>
       <div class="view">
-        <div class="text-model" :style="getStyle" v-text="cssSD.template"></div>
+        <div class="text-model" :style="getStyle" v-html="cssSD.template"></div>
       </div>
       <div :class="{ hideMode: !showcode }"> 
         <pre><code class="code" v-text="getStyle"></code></pre>
@@ -41,14 +41,14 @@
               <div class="itemp" v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'">
                 <div class="colorgroup">
                   <label :for="item.type" v-for="d in item.values"><span v-text="item.initial_value"></span></label>
-                  <input type="color" :id="item.type" :name="item.type" v-model="item.initial_value"/>
+                  <input type="color" :id="item.type" v-model="item.initial_value"/>
                 </div>
               </div>
               <div class="itemp" v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'">
                 <div class="btn-group">
                   <div class="group" v-for="d in item.values">
                     <button v-if=" !tocheckinput(d,item.values) " :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
-                    <input class="button" v-else=" tocheckinput(d,item.values) " type="text" :value="d" :id="d" :name="d" :class="{ active: item.initial_value == d }" v-model="item.values[item.values.indexOf(d)]" @click="item.initial_value = d" placeholder="請輸入單位 || length"/>
+                    <input class="button" v-else=" tocheckinput(d,item.values) " type="text" :id="d" :class="{ active: item.initial_value == d }" v-model="item.values[item.values.indexOf(d)]" @click="item.initial_value = d" placeholder="請輸入單位 || length"/>
                   </div>
                 </div>
               </div>

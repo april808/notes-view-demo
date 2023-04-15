@@ -13,7 +13,7 @@
     <div class="boxcontent container">
       <h1 :style="getStyle">{{ gettitle + ' / ' + cssSD.notes }}</h1>
       <div class="view">
-        <div class="text-model" :style="getStyle" v-text="cssSD.template"></div>
+        <div class="text-model" :style="getStyle" v-html="cssSD.template"></div>
       </div>
       <div :class="{ hideMode: !showcode }"> 
         <pre><code class="code" v-text="getStyle"></code></pre>
@@ -41,14 +41,14 @@
               <div class="itemp" v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'">
                 <div class="colorgroup">
                   <label :for="item.type" v-for="d in item.values"><span v-text="item.initial_value"></span></label>
-                  <input type="color" :id="item.type" :name="item.type" v-model="item.initial_value"/>
+                  <input type="color" :id="item.type" v-model="item.initial_value"/>
                 </div>
               </div>
-              <div class="itemp" v-if="item.type == 'width' &amp;&amp; !item.type == 'undefined' &amp;&amp; !item.type == 'null'">
+              <div class="itemp" v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'">
                 <div class="btn-group">
                   <div class="group" v-for="d in item.values">
-                    <button v-if="!tocheckinput(d, item.values)" :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
-                    <input class="button" v-else=" tocheckinput(d,item.values) " type="text" :value="d" :id="d" :name="d" :class="{ active: item.initial_value == d }" v-model="item.values[item.values.indexOf(d)]" @click="item.initial_value = d" placeholder="請輸入單位 || length"/>
+                    <button v-if=" !tocheckinput(d,item.values) " :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
+                    <input class="button" v-else=" tocheckinput(d,item.values) " type="text" :id="d" :class="{ active: item.initial_value == d }" v-model="item.values[item.values.indexOf(d)]" @click="item.initial_value = d" placeholder="請輸入單位 || length"/>
                   </div>
                 </div>
               </div>
@@ -56,8 +56,8 @@
                 <div class="btn-group">
                   <div class="group" v-for="d in item.values">
                     <button :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-model="item.values[item.values.indexOf(d)]" v-text="d"></button>
-                    <lable v-if="tocheckrange(d, item.values) &amp;&amp; hasString(d, item.angle.usevalue)">
-                      <input class="button" type="range" :value="item.angle.initial_value" min="-90" max="90" step="5" :id="item.angle.usevalue" :name="item.angle.usevalue" :class="{ active: tocheckrange(d, item.values) }" v-model="item.angle.initial_value"/><span>{{ item.angle.initial_value }}deg</span>
+                    <lable v-if="tocheckrange(d, item.values) &amp;&amp; hasString(d, item.check_if.usevalue)">
+                      <input class="button" :id="item.check_if.usevalue" :class="{ active: tocheckrange(d, item.values) }" v-model="item.check_if.initial_value" type="range" min="-90" max="90" step="5" name="usevalue[]"/><span>{{ item.check_if.initial_value }}{{item.check_if.unit}}</span>
                     </lable>
                   </div>
                 </div>
