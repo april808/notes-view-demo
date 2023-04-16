@@ -3,7 +3,9 @@
     .boxcontent.container
       h1(:style="getStyle") {{ gettitle + ' / ' + cssSD.notes }}
       .view
-        .text-model(:style="getStyle", v-html="cssSD.template")
+          .block(v-html="cssSD.templateouter") 
+          .text-model.viewblock(:style="getStyle", v-html="cssSD.template")
+          .block(v-html="cssSD.templateouter")
       div(:class="{ hideMode: !showcode }") 
         pre
           code.code(v-text="getStyle")

@@ -13,7 +13,9 @@
     <div class="boxcontent container">
       <h1 :style="getStyle">{{ gettitle + ' / ' + cssSD.notes }}</h1>
       <div class="view">
-        <div class="text-model" :style="getStyle" v-html="cssSD.template"></div>
+        <div class="block" v-html="cssSD.templateouter"> </div>
+        <div class="text-model viewblock" :style="getStyle" v-html="cssSD.template"></div>
+        <div class="block" v-html="cssSD.templateouter"></div>
       </div>
       <div :class="{ hideMode: !showcode }"> 
         <pre><code class="code" v-text="getStyle"></code></pre>

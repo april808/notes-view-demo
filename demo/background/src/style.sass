@@ -41,7 +41,8 @@ html,body
   +size(100%)
   +mp(0)
   background-color: #888
-  +flexCenter
+  display: flex
+  justify-content: center
   h5 , code
     margin: 0
 
@@ -49,7 +50,7 @@ html,body
   font-family: Avenir, Helvetica, Arial, sans-serif
   text-align: center
   color: $font_color
-  margin-top: 60px
+  margin: 60px
 
 a,button
   color: $color_tertiary
@@ -64,7 +65,7 @@ button,.button
 .button[type="range"]
   padding: 0
 .textOf
-  /* 限制按鈕長度 */
+  /* 限制文字長度... */
   overflow: hidden
   text-overflow: ellipsis
   white-space: pre
@@ -88,15 +89,24 @@ button,.button
       background-color: $font_color
       text-shadow: black 0.1em 0.1em 0.2em
       color: #fff
+    & .viewblock
+        overflow: scroll
+        height: 500px
     & .view
-      
       background-color: #fff
-      +flexCenter
+      display: flex
       flex-direction: column
       & .text-model
         text-align: left
         width: 100%
         transform: scale(1) translateX(0%)
+      & .text-model.viewblock
+        border: 5px solid rgba(#000,.3)
+        margin: 15px
+        padding: 15px
+        overflow: scroll
+        // width: 100%
+        height: 300px
   & .control
     & .status
       display: flex

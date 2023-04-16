@@ -17,7 +17,7 @@ var alldata = {
       check_if: {
         btn_tf:[true,true],
         usevalue: ["url","gradient"],
-        initial_value: ["https://picsum.photos/seed/picsum/200/300","to top, #a8edea 0%, #fed6e3 100%"],
+        initial_value: ["https://picsum.photos/seed/picsum/800/500","to top, #a8edea 0%, #fed6e3 100%"],
         range: [],
         unit: "",
         link: ""
@@ -67,8 +67,51 @@ var alldata = {
     }
   ],
   notes: "背景樣式",
+  templateouter: `<p>這是段落</p>
+	<p>這是段落</p>
+	<p>這是段落</p>
+	<p>這是段落</p>
+	<p>這是段落</p>
+	<p>這是段落</p>
+  <p>這是段落</p>
+	<p>這是段落</p>
+	<p>這是段落</p>
+  `,
   template:
-    `<div style="height: 200px" ></div>`
+    `
+    這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+		這是block段落<br />
+    `
 };
 
 const app = Vue.createApp({
