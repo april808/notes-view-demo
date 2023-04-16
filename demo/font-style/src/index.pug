@@ -23,7 +23,7 @@
           input(v-model="showcode", type="checkbox")
       hr
       .mode(:class="{ hideMode: !editing }") 
-        .settings(v-for="(item, index) in cssSD.property")
+        .settings(v-for="(item, itemi) in cssSD.property")
           .row
             .col-sm-3
               span(v-if="!item.type == ''") {{ item.name + ' :' }}
@@ -32,59 +32,61 @@
                 v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'"
               )
                 .colorgroup
-                  label(:for="item.type", v-for="d in item.values")
+                  label(:for="item.type", v-for="(d,index) in item.values")
                     span(v-text="item.initial_value")
                   input(
                     type="color",
                     :id="item.type",
-                    v-model="item.initial_value"
+                    v-model.lazy="item.initial_value",
                   )
               .itemp(
                 v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'"
               )
-                //- label(:for="d" v-for=" d in item.values ") 
-                //-   span(v-if=" tocheckinput(d,item.values) "
-                //-     v-text="item.values[item.values.indexOf(d)]",
+                //- label(:for="d" v-for=" (d,di) in item.values ") 
+                //-   span(v-if=" tockString('length',di,item.values) "
+                //-     v-text="item.values[di]",
                 //-     :class="{ active: item.initial_value == d }"
-                //-   ) {{ v-text="item.values.indexOf(d) +'/'+[item.values.length - 1]",}}
+                //-   ) {{ v-text="di +'/'+[item.values.length - 1]",}}
                 .btn-group
-                  .group(v-for="d in item.values")
+                  .group(v-for="(d,di) in item.values")
                     button(
-                      v-if=" !tocheckinput(d,item.values) ",
+                      v-if=" !tockString('length',di,item.values) ",
                       :class="{ active: item.initial_value == d }",
                       @click="item.initial_value = d",
                       v-text="d"
                     )
                     input.button(
-                      v-else=" tocheckinput(d,item.values) ",
+                      v-else=" tockString('length',di,item.values) ",
                       type="text",
                       :id="d",
                       :class="{ active: item.initial_value == d }",
-                      v-model="item.values[item.values.indexOf(d)]",
+                      v-model="item.values[di]",
                       @click="item.initial_value = d",
+                      @keyup="item.initial_value = d",
                       placeholder="請輸入單位 || length"
                     )
 
               .itemp(v-if="item.type != 'color' && item.type != 'width'")
                 .btn-group
-                  .group(v-for="d in item.values")
+                  .group(v-for="(d,di) in item.values")
                     button(
                       :class="{ active: item.initial_value == d }",
                       @click="item.initial_value = d",
-                      v-model="item.values[item.values.indexOf(d)]",
+                      v-model="item.values[di]",
                       v-text="d"
                     )
-                    lable(
-                      v-if="tocheckrange(d, item.values) && hasString(d, item.check_if.usevalue)"
-                    )
-                      input.button(
-                        :id="item.check_if.usevalue",
-                        :class="{ active: tocheckrange(d, item.values) }",
-                        v-model="item.check_if.initial_value"
-                        type="range",
-                        min="-90",
-                        max="90",
-                        step="5",
-                        name="usevalue[]",
-                      ) 
-                      span {{ item.check_if.initial_value }}{{item.check_if.unit}}
+                .btn-group
+                  lable(
+                    v-if="tocheckrange(item.initial_value, item.values) && hasString(item.initial_value, item.check_if.usevalue)"
+                  )
+                    input.button(
+                      :id="item.check_if.usevalue",
+                      :class="{ active: tocheckrange(item.initial_value, item.values) }",
+                      v-model="item.check_if.initial_value"
+                      type="range",
+                      min="-90",
+                      max="90",
+                      step="5",
+                      name="usevalue[]",
+                    ) 
+                    span {{ item.check_if.initial_value }}{{item.check_if.unit}}

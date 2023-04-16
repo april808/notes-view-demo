@@ -34,32 +34,34 @@
       </div>
       <hr/>
       <div class="mode" :class="{ hideMode: !editing }"> 
-        <div class="settings" v-for="(item, index) in cssSD.property">
+        <div class="settings" v-for="(item, itemi) in cssSD.property">
           <div class="row">
             <div class="col-sm-3"><span v-if="!item.type == ''">{{ item.name + ' :' }}</span></div>
             <div class="col-sm-9">
               <div class="itemp" v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'">
                 <div class="colorgroup">
-                  <label :for="item.type" v-for="d in item.values"><span v-text="item.initial_value"></span></label>
-                  <input type="color" :id="item.type" v-model="item.initial_value"/>
+                  <label :for="item.type" v-for="(d,index) in item.values"><span v-text="item.initial_value"></span></label>
+                  <input type="color" :id="item.type" v-model.lazy="item.initial_value"/>
                 </div>
               </div>
               <div class="itemp" v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'">
                 <div class="btn-group">
-                  <div class="group" v-for="d in item.values">
-                    <button v-if=" !tocheckinput(d,item.values) " :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
-                    <input class="button" v-else=" tocheckinput(d,item.values) " type="text" :id="d" :class="{ active: item.initial_value == d }" v-model="item.values[item.values.indexOf(d)]" @click="item.initial_value = d" placeholder="請輸入單位 || length"/>
+                  <div class="group" v-for="(d,di) in item.values">
+                    <button v-if=" !tockString('length',di,item.values) " :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
+                    <input class="button" v-else=" tockString('length',di,item.values) " type="text" :id="d" :class="{ active: item.initial_value == d }" v-model="item.values[di]" @click="item.initial_value = d" @keyup="item.initial_value = d" placeholder="請輸入單位 || length"/>
                   </div>
                 </div>
               </div>
               <div class="itemp" v-if="item.type != 'color' &amp;&amp; item.type != 'width'">
                 <div class="btn-group">
-                  <div class="group" v-for="d in item.values">
-                    <button :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-model="item.values[item.values.indexOf(d)]" v-text="d"></button>
-                    <lable v-if="tocheckrange(d, item.values) &amp;&amp; hasString(d, item.check_if.usevalue)">
-                      <input class="button" :id="item.check_if.usevalue" :class="{ active: tocheckrange(d, item.values) }" v-model="item.check_if.initial_value" type="range" min="-90" max="90" step="5" name="usevalue[]"/><span>{{ item.check_if.initial_value }}{{item.check_if.unit}}</span>
-                    </lable>
+                  <div class="group" v-for="(d,di) in item.values">
+                    <button :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-model="item.values[di]" v-text="d"></button>
                   </div>
+                </div>
+                <div class="btn-group">
+                  <lable v-if="tocheckrange(item.initial_value, item.values) &amp;&amp; hasString(item.initial_value, item.check_if.usevalue)">
+                    <input class="button" :id="item.check_if.usevalue" :class="{ active: tocheckrange(item.initial_value, item.values) }" v-model="item.check_if.initial_value" type="range" min="-90" max="90" step="5" name="usevalue[]"/><span>{{ item.check_if.initial_value }}{{item.check_if.unit}}</span>
+                  </lable>
                 </div>
               </div>
             </div>
