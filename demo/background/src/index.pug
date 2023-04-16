@@ -1,0 +1,134 @@
+#app
+  .demo
+    .boxcontent.container
+      h1(:style="getStyle") {{ gettitle + ' / ' + cssSD.notes }}
+      .view
+        .text-model(:style="getStyle", v-html="cssSD.template")
+      div(:class="{ hideMode: !showcode }") 
+        pre
+          code.code(v-text="getStyle")
+        .shorthand(v-if="cssSD.property.length > 1")
+          h5(v-if="cssSD.shorthand != ''", :class="{ hideMode: !showcode }") 簡寫：
+          code.code(v-if="cssSD.shorthand != ''") {{ getshort }}
+          //- h5(:class="{ hideMode: !showcode }") 使用屬性:
+          //- code.code {{ propertyname() }}
+    .control.container
+      .status
+        h5.notify 狀態: {{ status }}
+          span(v-if="!editing") {{ statusNow('(預覽)') }}
+          span(v-else="!editing") {{ statusNow('修改CSS樣式') }}
+        label.hiddenControl 編輯:
+          input(v-model="editing", type="checkbox")
+        label.hiddenControl 原始碼:
+          input(v-model="showcode", type="checkbox")
+      hr
+      .mode(:class="{ hideMode: !editing }") 
+        .settings(v-for="(item, itemi) in cssSD.property")
+          .row
+            .col-sm-3
+              span(v-if="!item.type == ''") {{ item.name + ' :' }}
+            .col-sm-9
+              .itemp(
+                v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'"
+              )
+                .btn-group
+                  .group(v-for="(d,di) in item.values")
+                    button(
+                      v-if=" !tockString('length',di,item.values) ",
+                      :class="{ active: item.initial_value == d }",
+                      @click="item.initial_value = d",
+                      v-text="d"
+                    )
+                    .colorgroup(v-else=" tockString('length',di,item.values) ")
+                      label(:for="")
+                        span.button(:class="{ active: item.initial_value == d }",@click="item.initial_value = d",v-text="d")
+                      input.button(
+                        type="text",
+                        :id="d",
+                        :class="{ active: item.initial_value == d }",
+                        v-model="item.values[di]",
+                        @keyup="item.initial_value = d",
+                        @click="item.initial_value = d",
+                        placeholder="請輸入色碼 || color",
+                        hidden
+                      )
+                      input(
+                        type="color",
+                        :id="item.type",
+                        v-model.lazy="item.values[di]",
+                        @keyup="item.initial_value = d",
+                        @click="item.initial_value = d",
+                      )
+              .itemp(
+                v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'"
+              )
+                //- label(:for="d" v-for=" (d,di) in item.values ") 
+                //-   span(v-if=" tockString('length',di,item.values) "
+                //-     v-text="item.values[di]",
+                //-     :class="{ active: item.initial_value == d }"
+                //-   ) {{ v-text="di +'/'+[item.values.length - 1]",}}
+                .btn-group
+                  .group(v-for="(d,di) in item.values")
+                    button(
+                      v-if=" !tockString('length',di,item.values) ",
+                      :class="{ active: item.initial_value == d }",
+                      @click="item.initial_value = d",
+                      v-text="d"
+                    )
+                    input.button(
+                      v-else=" tockString('length',di,item.values) ",
+                      type="text",
+                      :id="d",
+                      :class="{ active: item.initial_value == d }",
+                      v-model="item.values[di]",
+                      @click="item.initial_value = d",
+                      @keyup="item.initial_value = d",
+                      placeholder="請輸入單位 || length"
+                    )
+              .itemp(
+                v-if="item.type == 'image' || !item.type == 'undefined' || !item.type == 'null'"
+              )
+                .btn-group
+                  .group(v-for="(d,di) in item.values")
+                    button(
+                      :class="{ active: item.initial_value == d }",
+                      @click="item.initial_value = d",
+                      v-model="item.values[di]",
+                      v-text="d"
+                    ) 
+                .btn-group(v-for="(usv,usvi) in item.check_if.usevalue")
+                  div(v-if="hasString(item.initial_value, usv) && tockimg(usvi,itemi) ") 
+                    div.textOf {{ item.check_if.initial_value[usvi] }}{{item.check_if.link}}
+                    span {{usv }} 
+                    lable
+                      input.button(
+                        :id="item.check_if.usevalue",
+                        :class="{ active: tockimg(usvi,itemi) }",
+                        v-model="item.check_if.initial_value[usvi]"
+                        type="text",
+                        name="usevalue[]",
+                      ) 
+
+              .itemp(v-if="item.type != 'color' && item.type != 'width' && item.type != 'image'")
+                .btn-group
+                  .group(v-for="(d,di) in item.values")
+                    button(
+                      :class="{ active: item.initial_value == d }",
+                      @click="item.initial_value = d",
+                      v-model="item.values[di]",
+                      v-text="d"
+                    )
+                    //- lable(
+                    //-   v-if="tocheckrange(d, item.values) && hasString(d, item.check_if.usevalue)"
+                    //- )
+                    //-   input.button(
+                    //-     :id="item.check_if.usevalue",
+                    //-     :class="{ active: tocheckrange(d, item.values) }",
+                    //-     v-model="item.check_if.initial_value"
+                    //-     type="range",
+                    //-     min="-90",
+                    //-     max="90",
+                    //-     step="5",
+                    //-     name="usevalue[]",
+                    //-   ) 
+                    //-   span {{ item.check_if.initial_value }}{{item.check_if.unit}}

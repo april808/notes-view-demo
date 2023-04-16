@@ -22,6 +22,7 @@ GitHub:
   9. [CSS 屬性控制模型 font-style / 文字樣式](https://april808.github.io/notes-view-demo/demo/font-style/dist/index.html)
 	
 ### CSS 背景樣式
+  1. [CSS 屬性控制模型-background / 背景樣式(九種) ](https://april808.github.io/notes-view-demo/demo/background/dist/index.html)
 
 ### CSS 基本效果樣式
   1. [CSS 屬性控制模型-border / 邊框線](https://april808.github.io/notes-view-demo/demo/border/dist/index.html)
