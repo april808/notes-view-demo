@@ -72,11 +72,11 @@ const app = Vue.createApp({
       }
       return cssnames;
     },
-    tocheckinput: function (val, attr) {
+    tockString: function (val1,string, index,attr) {
       let length = attr.length - 1;
-      let nowindex = attr.indexOf(val);
+      let val = attr[index];
 
-      if (val == "length" || nowindex == length) {
+      if (val == string || index == length) {
         return true;
       }
       // else if (nowindex == length) { return true }

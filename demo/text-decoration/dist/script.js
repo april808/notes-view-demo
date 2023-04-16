@@ -7,9 +7,8 @@ var alldata = {
       initial_value: "none",
       values: ["none", "underline", "overline", "line-through"],
       check_if: {
-        usevalue: "oblique",
-        initial_value: 45,
-        deg: [-90, 90]
+        usevalue: ["underline", "overline"],
+        initial_value: ""
       }
     },
     {
@@ -67,11 +66,11 @@ const app = Vue.createApp({
       }
       return cssnames;
     },
-    tocheckinput: function (val, attr) {
+    tockString: function (string, index, attr) {
       let length = attr.length - 1;
-      let nowindex = attr.indexOf(val);
+      let val = attr[index];
 
-      if (val == "length" || nowindex == length) {
+      if (val == string || index == length) {
         return true;
       }
       // else if (nowindex == length) { return true }
@@ -120,19 +119,20 @@ const app = Vue.createApp({
       let name = this.cssSD.shorthand;
       let nowCSS = this.propertyname();
 
-            for(let item of nowCSS ){
-              attr[nowCSS.indexOf(item)] = " " + this.tocheckvalue(item)
-            }
-            return ( name + ": " + attr.join('\n') + ";"
-      // return (
-      //   name +
-      //   ": " +
-      //   this.cssSD.property[0].initial_value +
-      //   " " +
-      //   this.defaultColor +
-      //   " " +
-      //   this.cssSD.property[2].initial_value +
-      //   ";"
+      for (let item of nowCSS) {
+        attr[nowCSS.indexOf(item)] = " " + this.tocheckvalue(item);
+      }
+      return (
+        name + ": " + attr.join("\n") + ";"
+        // return (
+        //   name +
+        //   ": " +
+        //   this.cssSD.property[0].initial_value +
+        //   " " +
+        //   this.defaultColor +
+        //   " " +
+        //   this.cssSD.property[2].initial_value +
+        //   ";"
       );
     }
   }

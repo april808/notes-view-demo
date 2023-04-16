@@ -4,11 +4,13 @@ var alldata= {
 shorthand: "text-decoration",
 property:[
   {name: "text-decoration-line",type:"line",initial_value:"none",
-      values:["none","underline","overline","line-through"]},
+      values: ["none", "underline", "overline", "line-through"]},
+  {name: "text-decoration-style",type:"style",initial_value: "solid",
+      values: ["solid", "dashed", "dotted", "double", "wavy"]},
   {name: "text-decoration-color",type:"color",initial_value: "currentcolor",
       values:["currentcolor"]},
-  {name: "text-decoration-style",type:"style",initial_value: "solid",
-      values:["solid","dashed","dotted","double","wavy"]}
+  {name: "text-decoration-thickness",type:"width",initial_value: "auto",
+      values: ["auto", "from-font", "length"]},
 ],
 notes: "文字畫線裝飾"
 };
@@ -27,21 +29,85 @@ var script = {
     doSomething() {
       alert("Hello!");
     },
+    checkshort: function () {
+      let check = this.cssSD.shorthand;
+      let name = this.cssSD.property[0].name;
+
+      if (check != "") {
+        return check;
+      } else {
+        return name;
+      }
+    },
     statusNow: function (notify) {
       this.status = notify;
+    },
+    propertyname: function () {
+      let cssnames = [];
+      let obj = this.cssSD.property;
+      for (let i = 0; i < obj.length; i++) {
+        cssnames[i] = obj[i].name;
+      }
+      return cssnames;
+    },
+    tockString: function (string, index, attr) {
+      let length = attr.length - 1;
+      let val = attr[index];
+
+      if (val == string || index == length) {
+        return true;
+      }
+      // else if (nowindex == length) { return true }
+      else {
+        return false;
+      }
+    },
+    tocheckvalue: function (item) {
+      let obj = this.cssSD.property;
+
+      /* 確認屬性名稱的指定 */
+      let nowindex = 0;
+      for (let i = 0; i < obj.length; i++) {
+        if (item == obj[i].name) {
+          nowindex = i;
+        }
+      } /* for結束 確認nowindex */
+
+      /* 屬性預設值 和可改動的內容 */
+      let valspace = obj[nowindex].initial_value;
+
+      if (valspace != "") {
+        return valspace;
+      } else {
+        return "";
+      }
     }
   },
   computed: {
-    getStyle(){
-      return {
-        "text-decoration-line": this.cssSD.property[0].initial_value,
-        "text-decoration-color": this.defaultColor,
-        "text-decoration-style": this.cssSD.property[2].initial_value
-      }
+    gettitle() {
+      return this.checkshort();
     },
-    getshort(){
-      var name = this.cssSD.shorthand;
-      return  name +': '+ this.cssSD.property[0].initial_value + ' ' + this.defaultColor + ' ' +  this.cssSD.property[2].initial_value +";"
+    getStyle() {
+      let nowCSS = this.propertyname();
+
+      let attr = [];
+      for (let item of nowCSS) {
+        attr[nowCSS.indexOf(item)] = item + ": " + this.tocheckvalue(item);
+      }
+
+      let obj = attr.join(";\n") + ";";
+      return obj;
+    },
+    getshort() {
+      let attr = [];
+      let name = this.cssSD.shorthand;
+      let nowCSS = this.propertyname();
+
+      for (let item of nowCSS) {
+        attr[nowCSS.indexOf(item)] = " " + this.tocheckvalue(item);
+      }
+      return (
+        name + ": " + attr.join("\n") + ";");
     }
   }
 };
@@ -50,13 +116,16 @@ const _hoisted_1 = { id: "app" };
 const _hoisted_2 = { class: "demo" };
 const _hoisted_3 = { class: "boxcontent container" };
 const _hoisted_4 = { class: "view" };
-const _hoisted_5 = ["textContent"];
+const _hoisted_5 = ["innerHTML"];
 const _hoisted_6 = ["textContent"];
 const _hoisted_7 = {
   key: 0,
   class: "shorthand"
 };
-const _hoisted_8 = { class: "code" };
+const _hoisted_8 = {
+  key: 1,
+  class: "code"
+};
 const _hoisted_9 = { class: "control container" };
 const _hoisted_10 = { class: "status" };
 const _hoisted_11 = { class: "notify" };
@@ -78,25 +147,34 @@ const _hoisted_24 = {
 };
 const _hoisted_25 = { class: "colorgroup" };
 const _hoisted_26 = ["for"];
-const _hoisted_27 = ["id", "name"];
-const _hoisted_28 = {
+const _hoisted_27 = ["textContent"];
+const _hoisted_28 = ["id", "onUpdate:modelValue"];
+const _hoisted_29 = {
   key: 1,
   class: "itemp"
 };
-const _hoisted_29 = ["onClick"];
+const _hoisted_30 = { class: "btn-group" };
+const _hoisted_31 = { class: "group" };
+const _hoisted_32 = ["onClick", "textContent"];
+const _hoisted_33 = ["id", "onUpdate:modelValue", "onClick", "onKeyup"];
+const _hoisted_34 = {
+  key: 2,
+  class: "itemp"
+};
+const _hoisted_35 = ["onClick"];
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createElementBlock("div", _hoisted_1, [
     createElementVNode("div", _hoisted_2, [
       createElementVNode("div", _hoisted_3, [
-        createElementVNode("h2", {
+        createElementVNode("h1", {
           style: normalizeStyle($options.getStyle)
-        }, toDisplayString($data.cssSD.shorthand + ' / ' + $data.cssSD.notes), 5 /* TEXT, STYLE */),
+        }, toDisplayString($options.gettitle + ' / ' + $data.cssSD.notes), 5 /* TEXT, STYLE */),
         createElementVNode("div", _hoisted_4, [
           createElementVNode("div", {
             class: "text-model",
             style: normalizeStyle($options.getStyle),
-            textContent: toDisplayString($data.cssSD.template)
+            innerHTML: $data.cssSD.template
           }, null, 12 /* STYLE, PROPS */, _hoisted_5)
         ]),
         createElementVNode("div", {
@@ -110,10 +188,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           ($data.cssSD.property.length > 1)
             ? (openBlock(), createElementBlock("div", _hoisted_7, [
-                createElementVNode("h5", {
-                  class: normalizeClass({ hideMode: !$data.showcode })
-                }, "簡寫：", 2 /* CLASS */),
-                createElementVNode("code", _hoisted_8, toDisplayString($options.getshort), 1 /* TEXT */)
+                ($data.cssSD.shorthand != '')
+                  ? (openBlock(), createElementBlock("h5", {
+                      key: 0,
+                      class: normalizeClass({ hideMode: !$data.showcode })
+                    }, "簡寫：", 2 /* CLASS */))
+                  : createCommentVNode("v-if", true),
+                ($data.cssSD.shorthand != '')
+                  ? (openBlock(), createElementBlock("code", _hoisted_8, toDisplayString($options.getshort), 1 /* TEXT */))
+                  : createCommentVNode("v-if", true)
               ]))
             : createCommentVNode("v-if", true)
         ], 2 /* CLASS */)
@@ -161,33 +244,69 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                   (item.type == 'color' || !item.type == 'undefined' || !item.type == 'null')
                     ? (openBlock(), createElementBlock("div", _hoisted_24, [
                         createElementVNode("div", _hoisted_25, [
-                          (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
+                          (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d, index) => {
                             return (openBlock(), createElementBlock("label", {
                               for: item.type
                             }, [
                               createElementVNode("span", {
-                                onInput: _cache[2] || (_cache[2] = (...args) => (_ctx.colorVal && _ctx.colorVal(...args)))
-                              }, toDisplayString($data.defaultColor), 33 /* TEXT, HYDRATE_EVENTS */)
+                                textContent: toDisplayString(item.initial_value)
+                              }, null, 8 /* PROPS */, _hoisted_27)
                             ], 8 /* PROPS */, _hoisted_26))
                           }), 256 /* UNKEYED_FRAGMENT */)),
                           withDirectives(createElementVNode("input", {
                             type: "color",
                             id: item.type,
-                            name: item.type,
-                            "onUpdate:modelValue": _cache[3] || (_cache[3] = $event => (($data.defaultColor) = $event))
-                          }, null, 8 /* PROPS */, _hoisted_27), [
-                            [vModelText, $data.defaultColor]
+                            "onUpdate:modelValue": $event => ((item.initial_value) = $event)
+                          }, null, 8 /* PROPS */, _hoisted_28), [
+                            [
+                              vModelText,
+                              item.initial_value,
+                              void 0,
+                              { lazy: true }
+                            ]
                           ])
                         ])
                       ]))
-                    : (openBlock(), createElementBlock("div", _hoisted_28, [
-                        (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d) => {
+                    : createCommentVNode("v-if", true),
+                  (item.type == 'width' || !item.type == 'undefined' || !item.type == 'null')
+                    ? (openBlock(), createElementBlock("div", _hoisted_29, [
+                        createElementVNode("div", _hoisted_30, [
+                          (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d, index) => {
+                            return (openBlock(), createElementBlock("div", _hoisted_31, [
+                              (!$options.tockString('length', index, item.values))
+                                ? (openBlock(), createElementBlock("button", {
+                                    key: 0,
+                                    class: normalizeClass({ active: item.initial_value == d }),
+                                    onClick: $event => (item.initial_value = d),
+                                    textContent: toDisplayString(d)
+                                  }, null, 10 /* CLASS, PROPS */, _hoisted_32))
+                                : withDirectives((openBlock(), createElementBlock("input", {
+                                    key: 1,
+                                    class: normalizeClass(["button", { active: item.initial_value == d }]),
+                                    type: "text",
+                                    id: d,
+                                    "onUpdate:modelValue": $event => ((item.values[index]) = $event),
+                                    onClick: $event => (item.initial_value = d),
+                                    onKeyup: $event => (item.initial_value = d),
+                                    placeholder: "請輸入單位 || length"
+                                  }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_33)), [
+                                    [vModelText, item.values[index]]
+                                  ])
+                            ]))
+                          }), 256 /* UNKEYED_FRAGMENT */))
+                        ])
+                      ]))
+                    : createCommentVNode("v-if", true),
+                  (item.type != 'color' && item.type != 'width')
+                    ? (openBlock(), createElementBlock("div", _hoisted_34, [
+                        (openBlock(true), createElementBlock(Fragment, null, renderList(item.values, (d, index) => {
                           return (openBlock(), createElementBlock("button", {
                             class: normalizeClass({ active: item.initial_value == d }),
                             onClick: $event => (item.initial_value = d)
-                          }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_29))
+                          }, toDisplayString(d), 11 /* TEXT, CLASS, PROPS */, _hoisted_35))
                         }), 256 /* UNKEYED_FRAGMENT */))
                       ]))
+                    : createCommentVNode("v-if", true)
                 ])
               ])
             ]))
@@ -225,7 +344,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "* {\n  transition: 0.5s;\n}\nhtml, body {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #888;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nhtml h5, html code, body h5, body code {\n  margin: 0;\n}\n#app {\n  font-family: Avenir, Helvetica, Arial, sans-serif;\n  text-align: center;\n  color: #2c3e50;\n  margin-top: 60px;\n}\na, button {\n  color: rgba(31, 87, 62, 0.8);\n}\nbutton, .button {\n  background: none;\n  border: solid 1px;\n  border-radius: 2em;\n  font: inherit;\n  padding: 0.75em 2em;\n  margin: 0.1em 0.2em;\n}\n.demo {\n  background-color: #eee;\n  border-radius: 25px;\n  margin: 15px;\n  max-width: 768px;\n}\n.demo .container {\n  margin: auto;\n  padding: 10px 20px;\n}\n.demo .boxcontent {\n  border: 5px solid #aaf;\n  border-radius: 25px;\n  box-shadow: inset 0 0 10px rgba(0, 0, 170, 0.6);\n}\n.demo .boxcontent .code {\n  padding: 10px 50px;\n  text-align-last: left;\n  background-color: #2c3e50;\n  text-shadow: black 0.1em 0.1em 0.2em;\n  color: #fff;\n}\n.demo .boxcontent .view {\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n}\n.demo .boxcontent .view .text-model {\n  text-align: left;\n  width: 100%;\n  transform: scale(1) translateX(0%);\n}\n.demo .control .status {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n.demo .control .settings .itemp {\n  background-color: #ddddff;\n  margin: 5px;\n  padding: 5px;\n  vertical-align: middle;\n}\n.demo .control .itemp .btn-group {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n.demo .control .itemp .colorgroup {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  margin: 5px;\n}\n.demo .control .itemp .colorgroup span {\n  display: inline-block;\n  margin-bottom: 5px;\n}\n.demo .code, .demo .mode {\n  display: block;\n  overflow: hidden;\n  height: auto;\n}\n.demo .active {\n  background-color: #ffddaa;\n}\n.demo .hideMode {\n  opacity: 0;\n  overflow: hidden;\n  height: 0;\n}\n.vc-chrome {\n  position: absolute;\n  top: 35px;\n  right: 0;\n  z-index: 9;\n}\n.current-color {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: #000;\n  cursor: pointer;\n}";
+var css_248z = "* {\n  transition: 0.5s;\n}\nhtml, body {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #888;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nhtml h5, html code, body h5, body code {\n  margin: 0;\n}\n#app {\n  font-family: Avenir, Helvetica, Arial, sans-serif;\n  text-align: center;\n  color: #2c3e50;\n  margin-top: 60px;\n}\na, button {\n  color: rgba(31, 87, 62, 0.8);\n}\nbutton, .button {\n  background: none;\n  border: solid 1px;\n  border-radius: 2em;\n  font: inherit;\n  padding: 0.75em 2em;\n  margin: 0.1em 0.2em;\n}\n.demo {\n  background-color: #eee;\n  border-radius: 25px;\n  margin: 15px;\n  max-width: 768px;\n}\n.demo .container {\n  margin: auto;\n  padding: 10px 20px;\n}\n.demo .boxcontent {\n  border: 5px solid #aaf;\n  border-radius: 25px;\n  box-shadow: inset 0 0 10px rgba(0, 0, 170, 0.6);\n}\n.demo .boxcontent .code {\n  padding: 10px 50px;\n  text-align: left;\n  word-break: break-all;\n  background-color: #2c3e50;\n  text-shadow: black 0.1em 0.1em 0.2em;\n  color: #fff;\n}\n.demo .boxcontent .view {\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n}\n.demo .boxcontent .view .text-model {\n  text-align: left;\n  width: 100%;\n  transform: scale(1) translateX(0%);\n}\n.demo .boxcontent .view .text-model.addbd {\n  border: 1px solid #000;\n}\n.demo .control .status {\n  display: flex;\n  justify-content: space-around;\n  align-items: center;\n}\n.demo .control .settings .itemp {\n  background-color: #ddddff;\n  margin: 5px;\n  padding: 5px;\n  vertical-align: middle;\n}\n.demo .control .itemp .btn-group {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n.demo .control .itemp .colorgroup {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  margin: 5px;\n}\n.demo .control .itemp .colorgroup span {\n  display: inline-block;\n  margin-bottom: 5px;\n}\n.demo .code, .demo .mode {\n  display: block;\n  overflow: hidden;\n  height: auto;\n}\n.demo .active {\n  background-color: #ffddaa;\n}\n.demo .hideMode {\n  opacity: 0;\n  overflow: hidden;\n  height: 0;\n}\n.vc-chrome {\n  position: absolute;\n  top: 35px;\n  right: 0;\n  z-index: 9;\n}\n.current-color {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  background-color: #000;\n  cursor: pointer;\n}";
 styleInject(css_248z);
 
 script.render = render;

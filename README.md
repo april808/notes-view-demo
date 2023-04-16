@@ -4,7 +4,8 @@
 預覽：
 
 CodePen URL: 
-  - [CSS 屬性控制模型-text-decoration-template](https://codepen.io/april808/pen/VwEwqzv).
+- [CSS 屬性控制模型-text-decoration-template](https://codepen.io/april808/pen/VwEwqzv)
+	- [CSS 屬性控制模型 font-style (input[type="range"])](https://codepen.io/april808/pen/PoyPoJx)
   - [Vue template CSS 屬性控制模型](https://codepen.io/april808/full/PoyoQgL)
 
 GitHub: 
@@ -26,7 +27,7 @@ GitHub:
   1. [CSS 屬性控制模型-border / 邊框線](https://april808.github.io/notes-view-demo/demo/border/dist/index.html)
 
 ### CSS 溢載樣式
-[CSS 屬性控制模型-overflow / text-overflow / 溢載樣式 ](https://april808.github.io/notes-view-demo/demo/overflow/dist/index.html)
+  1. [CSS 屬性控制模型-overflow / text-overflow / 溢載樣式 ](https://april808.github.io/notes-view-demo/demo/overflow/dist/index.html)
  
 說明：
 
