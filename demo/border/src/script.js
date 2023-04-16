@@ -72,7 +72,7 @@ const app = Vue.createApp({
       }
       return cssnames;
     },
-    tockString: function (val1,string, index,attr) {
+    tockString: function (string, index,attr) {
       let length = attr.length - 1;
       let val = attr[index];
 
