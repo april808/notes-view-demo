@@ -29,6 +29,10 @@ GitHub:
 
 ### CSS 溢載樣式
   1. [CSS 屬性控制模型-overflow / text-overflow / 溢載樣式 ](https://april808.github.io/notes-view-demo/demo/overflow/dist/index.html)
+
+### CSS 基本效果樣式
+  1. [CSS 屬性控制模型-opacity / 元素不透明度 ](https://april808.github.io/notes-view-demo/demo/opacity/dist/index.html)
+ 
  
 說明：
 
