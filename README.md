@@ -26,18 +26,17 @@ GitHub:
 
 ### CSS 基本效果樣式
   1. [CSS 屬性控制模型-border / 邊框線](https://april808.github.io/notes-view-demo/demo/border/dist/index.html)
+  1. [CSS 屬性控制模型-opacity / 元素不透明度 ](https://april808.github.io/notes-view-demo/demo/opacity/dist/index.html)
 
 ### CSS 溢載樣式
   1. [CSS 屬性控制模型-overflow / text-overflow / 溢載樣式 ](https://april808.github.io/notes-view-demo/demo/overflow/dist/index.html)
-
-### CSS 基本效果樣式
-  1. [CSS 屬性控制模型-opacity / 元素不透明度 ](https://april808.github.io/notes-view-demo/demo/opacity/dist/index.html)
  
  
 說明：
 
 1. 條件判斷檢查是否有`type:color`,但最後要json格式要保留一個空陣物件，否則網站會掛掉。 
 1. 使用Vue3寫法。
+1. CSS內容分類參考 : 成為前端工程師｜透過 HTML 與 CSS 認識網頁設計，從 0 到 1 打造實用介面，張互賓老師教材。
 
  
 製作文字畫線的參考：
