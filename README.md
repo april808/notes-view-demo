@@ -52,7 +52,13 @@ GitHub:
 	- [https://stackoverflow.com/questions/68485996/html-input-type-color-display-as-text-color-code](https://stackoverflow.com/questions/68485996/html-input-type-color-display-as-text-color-code)
 	
 製作文字樣式的參考：
-- [<angle> - CSS：层叠样式表 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/angle)
+- [&lt;angle> - CSS：层叠样式表 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/angle)
 - [typeof - JavaScript | MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/typeof)
 - [Array.prototype.splice() - JavaScript | MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
 - [font-style - CSS：层叠样式表 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-style)
+
+製作Flexbox樣式的參考：
+- [玩轉 CSS FLEX | CSS教學 | 網頁教學 | 網頁設計](https://www.youtube.com/watch?v=_nCBQ6AIzDU)
+- [Why doesn't justify-content: stretch work?](https://stackoverflow.com/questions/52106717/why-doesnt-justify-content-stretch-work)
+- [CSS Grid Cheat Sheet Illustrated in 2021🎖️](https://dev.to/joyshaheb/css-grid-cheat-sheet-illustrated-in-2021-1a3)
+- [FLEXBOX FROGGY](https://flexboxfroggy.com/)
