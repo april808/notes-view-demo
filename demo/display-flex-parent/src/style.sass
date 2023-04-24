@@ -1,0 +1,153 @@
+
+// COLOR VARIABLE(顏色變數)
+$color_primary: #aaf
+$color_primary2: rgba(0, 0, 255, .2)
+
+$color_btnbg: lighten($color_primary2,30)
+  
+$color_secondary: #fda
+$color_tertiary: rgba(darken(#4fc08d,30),.8)
+$color_bg: rgba(200, 200, 200, 1)
+
+$font_color: #2c3e50
+
+// 次要色的變體(加深或變淺)
+$main-color: darken($color_primary,50)
+$sup-color: linear-gradient(180deg, rgba(207,207,207,1) 0%, rgba(241,241,241,1) 100%)
+$focus-color: darken($color_secondary,0)
+
+$bdrs: 25px
+
+$shadow: rgba($main-color,.2)
+$linear-gradient: linear-gradient(white 30%, hsla(0,0%,100%,0)),linear-gradient(hsla(0,0%,100%,0), white 70%) bottom,radial-gradient(at top, $shadow, transparent 70%),radial-gradient(at bottom, $shadow, transparent 70%) bottom
+
+// @mixin -------
+=flexCenter
+  display: flex
+  justify-content: center
+  align-items: center
+  
+=size($w,$h:$w)
+  width: $w
+  height: $h
+=mp($m,$p:$m)
+  margin: $m
+  padding: $p
+*
+  // border: 1px solid #000
+  transition: 0.5s
+  // box-sizing: border-box
+.hidden
+  display: none
+  
+html,body
+  +size(100%)
+  +mp(0)
+  background-color: #888
+  display: flex
+  justify-content: center
+  h5 , code
+    margin: 0
+
+#app
+  font-family: Avenir, Helvetica, Arial, sans-serif
+  text-align: center
+  color: $font_color
+  margin: 60px
+
+a,button
+  color: $color_tertiary
+
+button,.button
+  background: none
+  border: solid 1px
+  border-radius: 2em
+  font: inherit
+  padding: 0.75em 2em
+  margin: .1em .2em
+  
+.demo
+  background-color: #eee
+  border-radius: $bdrs
+  margin: 15px
+  max-width: 900px
+  & .container
+    +mp(auto,10px 20px)
+  & .boxcontent
+    // width: 500px
+    border: 5px solid $color_primary
+    border-radius: $bdrs
+    box-shadow: inset 0 0 10px rgba($main-color,.6)
+    & .code
+      // border: 1px solid $font_color
+      padding: 10px 50px
+      text-align-last: left
+      background-color: $font_color
+      text-shadow: black 0.1em 0.1em 0.2em
+      color: #fff	
+    & .viewblock	
+        overflow: scroll	
+        height: 500px	
+    & .view	
+      background-color: #fff	
+      display: flex	
+      flex-direction: column	
+      & .text-model	
+        text-align: left	
+        width: 100%	
+        transform: scale(1) translateX(0%)	
+      & .text-model.viewblock	
+        border: 5px solid rgba(#000,.3)	
+        margin: 15px	
+        padding: 15px	
+        overflow: scroll	
+        // width: 100%	
+        height: 300px	
+.demo
+  .control .itemp
+    .btn-group
+      +flexCenter
+      flex-direction: row
+      flex-wrap: wrap
+
+    .colorgroup
+      +flexCenter
+      flex-direction: column
+      margin: 5px
+
+      span
+        display: inline-block
+        margin-bottom: 5px
+        
+  & .code, & .mode
+      display: block
+      overflow: hidden
+      height: auto
+  & .active
+    background-color: $focus-color
+  & .hideMode
+    opacity: 0
+    overflow: hidden
+    height: 0
+    
+.vc-chrome
+  position: absolute
+  top: 35px
+  right: 0
+  z-index: 9
+.current-color
+  display: inline-block
+  width: 16px
+  height: 16px
+  background-color: #000
+  cursor: pointer
+  
+.flex.text-model
+  +size(150px)
+  border: 1px solid $color_primary
+  .child-box
+    background-color: $color_primary
+    border-radius: 10px
+    margin: 10px
+    padding: 10px
+      

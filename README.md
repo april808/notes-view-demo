@@ -30,7 +30,10 @@ GitHub:
 
 ### CSS 溢載樣式
   1. [CSS 屬性控制模型-overflow / text-overflow / 溢載樣式 ](https://april808.github.io/notes-view-demo/demo/overflow/dist/index.html)
- 
+
+### CSS 進階排版樣式 - Flexbox
+  1. [CSS 屬性控制模型-display / 觀察parent層 : flex ](https://april808.github.io/notes-view-demo/demo/display-flex-parent/dist/index.html)
+
  
 說明：
 
