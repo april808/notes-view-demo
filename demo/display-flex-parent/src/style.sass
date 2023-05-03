@@ -1,4 +1,3 @@
-
 // COLOR VARIABLE(顏色變數)
 $color_primary: #aaf
 $color_primary2: rgba(0, 0, 255, .2)
@@ -104,11 +103,29 @@ button,.button
         // width: 100%	
         height: 300px	
 .demo
+  & .control
+      & .status
+        display: flex
+        justify-content: space-around
+        align-items: center
+      & .mode .settings
+      & .settings .itemp
+        background-color: lighten($color_primary,10)
+        // border: 1px solid #000
+        margin: 5px
+        padding: 5px
+        vertical-align: middle
   .control .itemp
     .btn-group
       +flexCenter
       flex-direction: row
       flex-wrap: wrap
+    .btn-group button
+    .btn-group
+      +flexCenter
+      flex-direction: row
+      flex-wrap: wrap
+      background-color: yellow
 
     .colorgroup
       +flexCenter
@@ -124,23 +141,12 @@ button,.button
       overflow: hidden
       height: auto
   & .active
-    background-color: $focus-color
+      background-color: $focus-color
   & .hideMode
     opacity: 0
     overflow: hidden
     height: 0
-    
-.vc-chrome
-  position: absolute
-  top: 35px
-  right: 0
-  z-index: 9
-.current-color
-  display: inline-block
-  width: 16px
-  height: 16px
-  background-color: #000
-  cursor: pointer
+
   
 .flex.text-model
   +size(150px)

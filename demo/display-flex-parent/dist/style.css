@@ -84,12 +84,31 @@ button, .button {
   height: 300px;
 }
 
+.demo .control .status {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.demo .control .settings .itemp {
+  background-color: #ddddff;
+  margin: 5px;
+  padding: 5px;
+  vertical-align: middle;
+}
 .demo .control .itemp .btn-group {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
+}
+.demo .control .itemp .btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: yellow;
 }
 .demo .control .itemp .colorgroup {
   display: flex;
@@ -114,21 +133,6 @@ button, .button {
   opacity: 0;
   overflow: hidden;
   height: 0;
-}
-
-.vc-chrome {
-  position: absolute;
-  top: 35px;
-  right: 0;
-  z-index: 9;
-}
-
-.current-color {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-color: #000;
-  cursor: pointer;
 }
 
 .flex.text-model {
