@@ -8,7 +8,7 @@ var alldata= {
        ,initial_value:"normal"
        ,values:["100","200","300","normal","500","600","bold","800","900"]}
   ]
-  ,notes: "文字粗體"
+  ,notes: "文字粗細"
   ,template: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 };
 
@@ -44,18 +44,6 @@ const app = Vue.createApp({
         cssnames[i] = obj[i].name;
       }
       return cssnames;
-    },
-    tocheckinput: function (val, attr) {
-      let length = attr.length - 1;
-      let nowindex = attr.indexOf(val);
-
-      if (val == "length" || nowindex == length) {
-        return true;
-      }
-      // else if (nowindex == length) { return true }
-      else {
-        return false;
-      }
     },
     tocheckvalue: function (item) {
       let obj = this.cssSD.property;

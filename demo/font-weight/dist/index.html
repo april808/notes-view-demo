@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>CodePen - CSS 屬性控制模型-font-weight</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
@@ -38,22 +41,8 @@
           <div class="row">
             <div class="col-sm-3"><span v-if="!item.type == ''">{{ item.name + ' :' }}</span></div>
             <div class="col-sm-9">
-              <div class="itemp" v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'">
-                <div class="colorgroup">
-                  <label :for="item.type" v-for="d in item.values"><span v-text="item.initial_value"></span></label>
-                  <input type="color" :id="item.type" v-model="item.initial_value"/>
-                </div>
-              </div>
-              <div class="itemp" v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'">
-                <div class="btn-group">
-                  <div class="group" v-for="d in item.values">
-                    <button v-if=" !tocheckinput(d,item.values) " :class="{ active: item.initial_value == d }" @click="item.initial_value = d" v-text="d"></button>
-                    <input class="button" v-else=" tocheckinput(d,item.values) " type="text" :id="d" :class="{ active: item.initial_value == d }" v-model="item.values[item.values.indexOf(d)]" @click="item.initial_value = d" placeholder="請輸入單位 || length"/>
-                  </div>
-                </div>
-              </div>
               <div class="itemp" v-if="item.type != 'color' &amp;&amp; item.type != 'width'">
-                <button v-for="d in item.values" :class="{ active: item.initial_value == d }" @click="item.initial_value = d">{{ d }}</button>
+                <button v-for="(d, index) in item.values" :class="{ active: item.initial_value == d }" @click="item.initial_value = d">{{ d }}</button>
               </div>
             </div>
           </div>

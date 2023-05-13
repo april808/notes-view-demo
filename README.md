@@ -16,7 +16,7 @@ GitHub:
   3. [CSS 屬性控制模型 文字斷行(word-break)、連字符號(hyphens)](https://april808.github.io/notes-view-demo/demo/word-break/dist/index.html)
   4. [CSS 屬性控制模型 white-space / 文字空格](https://april808.github.io/notes-view-demo/demo/white-space/dist/index.html)
   5. [CSS 屬性控制模型 text-align / 文字水平對齊](https://april808.github.io/notes-view-demo/demo/text-align/dist/index.html)
-  6. [CSS 屬性控制模型 font-weight / 文字粗體](https://april808.github.io/notes-view-demo/demo/font-weight/dist/index.html)
+  6. [CSS 屬性控制模型 font-weight / 文字粗細](https://april808.github.io/notes-view-demo/demo/font-weight/dist/index.html)
   7. [CSS 屬性控制模型 line-height / 文字行高](https://april808.github.io/notes-view-demo/demo/line-height/dist/index.html)
   8. [CSS 屬性控制模型 font-size / 文字大小](https://april808.github.io/notes-view-demo/demo/font-size/dist/index.html)
   9. [CSS 屬性控制模型 font-style / 文字樣式](https://april808.github.io/notes-view-demo/demo/font-style/dist/index.html)

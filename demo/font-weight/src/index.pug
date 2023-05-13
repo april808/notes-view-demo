@@ -28,46 +28,9 @@
             .col-sm-3
               span(v-if="!item.type == ''") {{ item.name + ' :' }}
             .col-sm-9
-              .itemp(
-                v-if="item.type == 'color' || !item.type == 'undefined' || !item.type == 'null'"
-              )
-                .colorgroup
-                  label(:for="item.type", v-for="d in item.values")
-                    span(v-text="item.initial_value")
-                  input(
-                    type="color",
-                    :id="item.type",
-                    v-model="item.initial_value"
-                  )
-              .itemp(
-                v-if="item.type == 'width' || !item.type == 'undefined' || !item.type == 'null'"
-              )
-                //- label(:for="d" v-for=" d in item.values ") 
-                //-   span(v-if=" tocheckinput(d,item.values) "
-                //-     v-text="item.values[item.values.indexOf(d)]",
-                //-     :class="{ active: item.initial_value == d }"
-                //-   ) {{ v-text="item.values.indexOf(d) +'/'+[item.values.length - 1]",}}
-                .btn-group
-                  .group(v-for="d in item.values")
-                    button(
-                      v-if=" !tocheckinput(d,item.values) ",
-                      :class="{ active: item.initial_value == d }",
-                      @click="item.initial_value = d",
-                      v-text="d"
-                    )
-                    input.button(
-                      v-else=" tocheckinput(d,item.values) ",
-                      type="text",
-                      :id="d",
-                      :class="{ active: item.initial_value == d }",
-                      v-model="item.values[item.values.indexOf(d)]",
-                      @click="item.initial_value = d",
-                      placeholder="請輸入單位 || length"
-                    )
-
               .itemp(v-if="item.type != 'color' && item.type != 'width'")
                 button(
-                  v-for="d in item.values",
+                  v-for="(d, index) in item.values",
                   :class="{ active: item.initial_value == d }",
                   @click="item.initial_value = d"
                 ) {{ d }}
